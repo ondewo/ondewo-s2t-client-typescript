@@ -1,7 +1,7 @@
 # Release History
 *****************
 
-## Release 1.4.0 - First public release
+## Release ONDEWO S2T Typescript Client 1.4.0
 
 ### New Features
  * Added first public release
