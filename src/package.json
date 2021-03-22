@@ -6,7 +6,7 @@
   "typings": "public-api.d.ts",
   "scripts": {
     "start": "npm run build",
-    "build": "git submodule update --init --recursive && docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-typescript-proto-compiler ondewo-s2t-api ondewo",
+    "build": "git submodule update --init --recursive --remote && docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-typescript-proto-compiler ondewo-s2t-api ondewo",
     "predebug": "mv ondewo-s2t-api/googleapis/google ondewo-s2t-api/google",
     "debug": "docker run -it --entrypoint /bin/bash -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-typescript-proto-compiler"
   },
