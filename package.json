@@ -1,0 +1,20 @@
+{
+  "name": "@ondewo/s2t-client-typescript",
+  "version": "1.4.0",
+  "description": "Ondewo speech to text client library for typescript as a commonjs module",
+  "main": "public-api.js",
+  "typings": "public-api.d.ts",
+  "scripts": {
+    "start": "npm run build",
+    "build": "git submodule update --init --recursive --remote && docker run -it -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-typescript-proto-compiler ondewo-s2t-api ondewo",
+    "predebug": "mv ondewo-s2t-api/googleapis/google ondewo-s2t-api/google",
+    "debug": "docker run -it --entrypoint /bin/bash -v ${PWD}:/input-volume -v ${PWD}/..:/output-volume ondewo-typescript-proto-compiler"
+  },
+  "author": "Philipp Schweiger @ Ondewo",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "google-protobuf": "^3.11.4",
+    "grpc-web": "^1.0.7",
+    "tslib": "^1.10.0"
+  }
+}
