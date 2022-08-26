@@ -181,6 +181,7 @@ create_npm_package:
 	mkdir npm
 	cp -R api npm
 	cp public-api.d.ts npm
+	cp public-api.js npm
 	cp package.json npm
 	cp LICENSE npm
 	cp README.md npm
