@@ -24,7 +24,7 @@ proto.ondewo.s2t = require('./speech-to-text_pb.js');
 /**
  * @param {string} hostname
  * @param {?Object} credentials
- * @param {?Object} options
+ * @param {?grpc.web.ClientOptions} options
  * @constructor
  * @struct
  * @final
@@ -32,7 +32,7 @@ proto.ondewo.s2t = require('./speech-to-text_pb.js');
 proto.ondewo.s2t.Speech2TextClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
-  options['format'] = 'binary';
+  options.format = 'binary';
 
   /**
    * @private @const {!grpc.web.GrpcWebClientBase} The client
@@ -50,7 +50,7 @@ proto.ondewo.s2t.Speech2TextClient =
 /**
  * @param {string} hostname
  * @param {?Object} credentials
- * @param {?Object} options
+ * @param {?grpc.web.ClientOptions} options
  * @constructor
  * @struct
  * @final
@@ -58,7 +58,7 @@ proto.ondewo.s2t.Speech2TextClient =
 proto.ondewo.s2t.Speech2TextPromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
-  options['format'] = 'binary';
+  options.format = 'binary';
 
   /**
    * @private @const {!grpc.web.GrpcWebClientBase} The client
@@ -96,30 +96,11 @@ const methodDescriptor_Speech2Text_TranscribeFile = new grpc.web.MethodDescripto
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.TranscribeFileRequest,
- *   !proto.ondewo.s2t.TranscribeFileResponse>}
- */
-const methodInfo_Speech2Text_TranscribeFile = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.TranscribeFileResponse,
-  /**
-   * @param {!proto.ondewo.s2t.TranscribeFileRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.TranscribeFileResponse.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.TranscribeFileRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.TranscribeFileResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.TranscribeFileResponse)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.TranscribeFileResponse>|undefined}
  *     The XHR Node Readable Stream
@@ -138,7 +119,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.transcribeFile =
 /**
  * @param {!proto.ondewo.s2t.TranscribeFileRequest} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.TranscribeFileResponse>}
  *     Promise that resolves to the response
@@ -176,30 +157,11 @@ const methodDescriptor_Speech2Text_GetS2tPipeline = new grpc.web.MethodDescripto
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.S2tPipelineId,
- *   !proto.ondewo.s2t.Speech2TextConfig>}
- */
-const methodInfo_Speech2Text_GetS2tPipeline = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.Speech2TextConfig,
-  /**
-   * @param {!proto.ondewo.s2t.S2tPipelineId} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.Speech2TextConfig.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.S2tPipelineId} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.Speech2TextConfig)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.Speech2TextConfig)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.Speech2TextConfig>|undefined}
  *     The XHR Node Readable Stream
@@ -218,7 +180,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.getS2tPipeline =
 /**
  * @param {!proto.ondewo.s2t.S2tPipelineId} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.Speech2TextConfig>}
  *     Promise that resolves to the response
@@ -256,30 +218,11 @@ const methodDescriptor_Speech2Text_CreateS2tPipeline = new grpc.web.MethodDescri
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.Speech2TextConfig,
- *   !proto.ondewo.s2t.S2tPipelineId>}
- */
-const methodInfo_Speech2Text_CreateS2tPipeline = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.S2tPipelineId,
-  /**
-   * @param {!proto.ondewo.s2t.Speech2TextConfig} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.S2tPipelineId.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.Speech2TextConfig} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.S2tPipelineId)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.S2tPipelineId)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.S2tPipelineId>|undefined}
  *     The XHR Node Readable Stream
@@ -298,7 +241,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.createS2tPipeline =
 /**
  * @param {!proto.ondewo.s2t.Speech2TextConfig} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.S2tPipelineId>}
  *     Promise that resolves to the response
@@ -336,30 +279,11 @@ const methodDescriptor_Speech2Text_DeleteS2tPipeline = new grpc.web.MethodDescri
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.S2tPipelineId,
- *   !proto.google.protobuf.Empty>}
- */
-const methodInfo_Speech2Text_DeleteS2tPipeline = new grpc.web.AbstractClientBase.MethodInfo(
-  google_protobuf_empty_pb.Empty,
-  /**
-   * @param {!proto.ondewo.s2t.S2tPipelineId} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  google_protobuf_empty_pb.Empty.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.S2tPipelineId} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.google.protobuf.Empty)}
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
  *     The XHR Node Readable Stream
@@ -378,7 +302,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.deleteS2tPipeline =
 /**
  * @param {!proto.ondewo.s2t.S2tPipelineId} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.google.protobuf.Empty>}
  *     Promise that resolves to the response
@@ -416,30 +340,11 @@ const methodDescriptor_Speech2Text_UpdateS2tPipeline = new grpc.web.MethodDescri
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.Speech2TextConfig,
- *   !proto.google.protobuf.Empty>}
- */
-const methodInfo_Speech2Text_UpdateS2tPipeline = new grpc.web.AbstractClientBase.MethodInfo(
-  google_protobuf_empty_pb.Empty,
-  /**
-   * @param {!proto.ondewo.s2t.Speech2TextConfig} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  google_protobuf_empty_pb.Empty.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.Speech2TextConfig} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.google.protobuf.Empty)}
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
  *     The XHR Node Readable Stream
@@ -458,7 +363,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.updateS2tPipeline =
 /**
  * @param {!proto.ondewo.s2t.Speech2TextConfig} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.google.protobuf.Empty>}
  *     Promise that resolves to the response
@@ -496,30 +401,11 @@ const methodDescriptor_Speech2Text_ListS2tPipelines = new grpc.web.MethodDescrip
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.ListS2tPipelinesRequest,
- *   !proto.ondewo.s2t.ListS2tPipelinesResponse>}
- */
-const methodInfo_Speech2Text_ListS2tPipelines = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.ListS2tPipelinesResponse,
-  /**
-   * @param {!proto.ondewo.s2t.ListS2tPipelinesRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.ListS2tPipelinesResponse.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.ListS2tPipelinesRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.ListS2tPipelinesResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.ListS2tPipelinesResponse)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.ListS2tPipelinesResponse>|undefined}
  *     The XHR Node Readable Stream
@@ -538,7 +424,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.listS2tPipelines =
 /**
  * @param {!proto.ondewo.s2t.ListS2tPipelinesRequest} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.ListS2tPipelinesResponse>}
  *     Promise that resolves to the response
@@ -576,30 +462,11 @@ const methodDescriptor_Speech2Text_ListS2tLanguages = new grpc.web.MethodDescrip
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.ListS2tLanguagesRequest,
- *   !proto.ondewo.s2t.ListS2tLanguagesResponse>}
- */
-const methodInfo_Speech2Text_ListS2tLanguages = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.ListS2tLanguagesResponse,
-  /**
-   * @param {!proto.ondewo.s2t.ListS2tLanguagesRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.ListS2tLanguagesResponse.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.ListS2tLanguagesRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.ListS2tLanguagesResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.ListS2tLanguagesResponse)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.ListS2tLanguagesResponse>|undefined}
  *     The XHR Node Readable Stream
@@ -618,7 +485,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.listS2tLanguages =
 /**
  * @param {!proto.ondewo.s2t.ListS2tLanguagesRequest} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.ListS2tLanguagesResponse>}
  *     Promise that resolves to the response
@@ -656,30 +523,11 @@ const methodDescriptor_Speech2Text_ListS2tDomains = new grpc.web.MethodDescripto
 
 
 /**
- * @const
- * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.ondewo.s2t.ListS2tDomainsRequest,
- *   !proto.ondewo.s2t.ListS2tDomainsResponse>}
- */
-const methodInfo_Speech2Text_ListS2tDomains = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.ondewo.s2t.ListS2tDomainsResponse,
-  /**
-   * @param {!proto.ondewo.s2t.ListS2tDomainsRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.ondewo.s2t.ListS2tDomainsResponse.deserializeBinary
-);
-
-
-/**
  * @param {!proto.ondewo.s2t.ListS2tDomainsRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.ondewo.s2t.ListS2tDomainsResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.ListS2tDomainsResponse)}
  *     callback The callback function(error, response)
  * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.ListS2tDomainsResponse>|undefined}
  *     The XHR Node Readable Stream
@@ -698,7 +546,7 @@ proto.ondewo.s2t.Speech2TextClient.prototype.listS2tDomains =
 /**
  * @param {!proto.ondewo.s2t.ListS2tDomainsRequest} request The
  *     request proto
- * @param {?Object<string, string>} metadata User defined
+ * @param {?Object<string, string>=} metadata User defined
  *     call metadata
  * @return {!Promise<!proto.ondewo.s2t.ListS2tDomainsResponse>}
  *     Promise that resolves to the response
@@ -710,6 +558,372 @@ proto.ondewo.s2t.Speech2TextPromiseClient.prototype.listS2tDomains =
       request,
       metadata || {},
       methodDescriptor_Speech2Text_ListS2tDomains);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.ondewo.s2t.S2TGetServiceInfoResponse>}
+ */
+const methodDescriptor_Speech2Text_GetServiceInfo = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/GetServiceInfo',
+  grpc.web.MethodType.UNARY,
+  google_protobuf_empty_pb.Empty,
+  proto.ondewo.s2t.S2TGetServiceInfoResponse,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.ondewo.s2t.S2TGetServiceInfoResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.S2TGetServiceInfoResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.S2TGetServiceInfoResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.getServiceInfo =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/GetServiceInfo',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_GetServiceInfo,
+      callback);
+};
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.ondewo.s2t.S2TGetServiceInfoResponse>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.getServiceInfo =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/GetServiceInfo',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_GetServiceInfo);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.ondewo.s2t.ListS2tLanguageModelsRequest,
+ *   !proto.ondewo.s2t.ListS2tLanguageModelsResponse>}
+ */
+const methodDescriptor_Speech2Text_ListS2tLanguageModels = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/ListS2tLanguageModels',
+  grpc.web.MethodType.UNARY,
+  proto.ondewo.s2t.ListS2tLanguageModelsRequest,
+  proto.ondewo.s2t.ListS2tLanguageModelsResponse,
+  /**
+   * @param {!proto.ondewo.s2t.ListS2tLanguageModelsRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.ondewo.s2t.ListS2tLanguageModelsResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.ondewo.s2t.ListS2tLanguageModelsRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.ondewo.s2t.ListS2tLanguageModelsResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.ondewo.s2t.ListS2tLanguageModelsResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.listS2tLanguageModels =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/ListS2tLanguageModels',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_ListS2tLanguageModels,
+      callback);
+};
+
+
+/**
+ * @param {!proto.ondewo.s2t.ListS2tLanguageModelsRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.ondewo.s2t.ListS2tLanguageModelsResponse>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.listS2tLanguageModels =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/ListS2tLanguageModels',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_ListS2tLanguageModels);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.ondewo.s2t.CreateUserLanguageModelRequest,
+ *   !proto.google.protobuf.Empty>}
+ */
+const methodDescriptor_Speech2Text_CreateUserLanguageModel = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/CreateUserLanguageModel',
+  grpc.web.MethodType.UNARY,
+  proto.ondewo.s2t.CreateUserLanguageModelRequest,
+  google_protobuf_empty_pb.Empty,
+  /**
+   * @param {!proto.ondewo.s2t.CreateUserLanguageModelRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  google_protobuf_empty_pb.Empty.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.ondewo.s2t.CreateUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.createUserLanguageModel =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/CreateUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_CreateUserLanguageModel,
+      callback);
+};
+
+
+/**
+ * @param {!proto.ondewo.s2t.CreateUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.google.protobuf.Empty>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.createUserLanguageModel =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/CreateUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_CreateUserLanguageModel);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.ondewo.s2t.DeleteUserLanguageModelRequest,
+ *   !proto.google.protobuf.Empty>}
+ */
+const methodDescriptor_Speech2Text_DeleteUserLanguageModel = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/DeleteUserLanguageModel',
+  grpc.web.MethodType.UNARY,
+  proto.ondewo.s2t.DeleteUserLanguageModelRequest,
+  google_protobuf_empty_pb.Empty,
+  /**
+   * @param {!proto.ondewo.s2t.DeleteUserLanguageModelRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  google_protobuf_empty_pb.Empty.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.ondewo.s2t.DeleteUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.deleteUserLanguageModel =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/DeleteUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_DeleteUserLanguageModel,
+      callback);
+};
+
+
+/**
+ * @param {!proto.ondewo.s2t.DeleteUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.google.protobuf.Empty>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.deleteUserLanguageModel =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/DeleteUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_DeleteUserLanguageModel);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.ondewo.s2t.AddDataToUserLanguageModelRequest,
+ *   !proto.google.protobuf.Empty>}
+ */
+const methodDescriptor_Speech2Text_AddDataToUserLanguageModel = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/AddDataToUserLanguageModel',
+  grpc.web.MethodType.UNARY,
+  proto.ondewo.s2t.AddDataToUserLanguageModelRequest,
+  google_protobuf_empty_pb.Empty,
+  /**
+   * @param {!proto.ondewo.s2t.AddDataToUserLanguageModelRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  google_protobuf_empty_pb.Empty.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.ondewo.s2t.AddDataToUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.addDataToUserLanguageModel =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/AddDataToUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_AddDataToUserLanguageModel,
+      callback);
+};
+
+
+/**
+ * @param {!proto.ondewo.s2t.AddDataToUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.google.protobuf.Empty>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.addDataToUserLanguageModel =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/AddDataToUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_AddDataToUserLanguageModel);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.ondewo.s2t.TrainUserLanguageModelRequest,
+ *   !proto.google.protobuf.Empty>}
+ */
+const methodDescriptor_Speech2Text_TrainUserLanguageModel = new grpc.web.MethodDescriptor(
+  '/ondewo.s2t.Speech2Text/TrainUserLanguageModel',
+  grpc.web.MethodType.UNARY,
+  proto.ondewo.s2t.TrainUserLanguageModelRequest,
+  google_protobuf_empty_pb.Empty,
+  /**
+   * @param {!proto.ondewo.s2t.TrainUserLanguageModelRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  google_protobuf_empty_pb.Empty.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.ondewo.s2t.TrainUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.google.protobuf.Empty)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.google.protobuf.Empty>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.ondewo.s2t.Speech2TextClient.prototype.trainUserLanguageModel =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/TrainUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_TrainUserLanguageModel,
+      callback);
+};
+
+
+/**
+ * @param {!proto.ondewo.s2t.TrainUserLanguageModelRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.google.protobuf.Empty>}
+ *     Promise that resolves to the response
+ */
+proto.ondewo.s2t.Speech2TextPromiseClient.prototype.trainUserLanguageModel =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/ondewo.s2t.Speech2Text/TrainUserLanguageModel',
+      request,
+      metadata || {},
+      methodDescriptor_Speech2Text_TrainUserLanguageModel);
 };
 
 
