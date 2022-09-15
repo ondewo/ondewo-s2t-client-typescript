@@ -104,6 +104,7 @@ release: ## Create Github and NPM Release
 	git add package.json
 	git add package-lock.json
 	git add ${ONDEWO_PROTO_COMPILER_DIR}
+	git add ${S2T_APIS_DIR}
 	git status
 	git commit -m "Preparing for Release ${ONDEWO_S2T_VERSION}"
 	git push
@@ -152,7 +153,7 @@ release_to_github_via_docker_image:  ## Release to Github via docker
 build_utils_docker_image:  ## Build utils docker image
 	docker build -f Dockerfile.utils -t ${IMAGE_UTILS_NAME} .
 
-build_and_publish_npm_via_docker: build build_utils_docker_image ## Builds Code, Docker-Image and Releases to NPM
+publish_npm_via_docker: build_utils_docker_image ## Builds Code, Docker-Image and Releases to NPM
 	docker run --rm \
 		-e NPM_AUTOMATION_TOKEN=${NPM_AUTOMATION_TOKEN} \
 		${IMAGE_UTILS_NAME} make docker_npm_release
