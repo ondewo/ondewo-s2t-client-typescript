@@ -1,6 +1,6 @@
 {
 	"name": "@ondewo/s2t-client-typescript",
-	"version": "5.2.0",
+	"version": "5.3.0",
 	"description": "Ondewo Speech to Text (S2T) Client library for typescript as a commonjs module",
 	"main": "public-api.js",
 	"typings": "public-api.d.ts",

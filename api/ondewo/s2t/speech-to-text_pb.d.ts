@@ -104,11 +104,20 @@ export class TranscriptionReturnOptions extends jspb.Message {
 	getReturnAudio(): boolean;
 	setReturnAudio(value: boolean): TranscriptionReturnOptions;
 
+	getReturnConfidenceScore(): boolean;
+	setReturnConfidenceScore(value: boolean): TranscriptionReturnOptions;
+
 	getReturnAlternativeTranscriptions(): boolean;
 	setReturnAlternativeTranscriptions(value: boolean): TranscriptionReturnOptions;
 
-	getReturnConfidenceScore(): boolean;
-	setReturnConfidenceScore(value: boolean): TranscriptionReturnOptions;
+	getReturnAlternativeTranscriptionsNr(): number;
+	setReturnAlternativeTranscriptionsNr(value: number): TranscriptionReturnOptions;
+
+	getReturnAlternativeWords(): boolean;
+	setReturnAlternativeWords(value: boolean): TranscriptionReturnOptions;
+
+	getReturnAlternativeWordsNr(): number;
+	setReturnAlternativeWordsNr(value: number): TranscriptionReturnOptions;
 
 	getReturnWordTiming(): boolean;
 	setReturnWordTiming(value: boolean): TranscriptionReturnOptions;
@@ -128,8 +137,11 @@ export namespace TranscriptionReturnOptions {
 	export type AsObject = {
 		returnStartOfSpeech: boolean;
 		returnAudio: boolean;
-		returnAlternativeTranscriptions: boolean;
 		returnConfidenceScore: boolean;
+		returnAlternativeTranscriptions: boolean;
+		returnAlternativeTranscriptionsNr: number;
+		returnAlternativeWords: boolean;
+		returnAlternativeWordsNr: number;
 		returnWordTiming: boolean;
 	};
 }
@@ -713,6 +725,9 @@ export class S2TInference extends jspb.Message {
 	hasLanguageModels(): boolean;
 	clearLanguageModels(): S2TInference;
 
+	getInferenceBackend(): InferenceBackend;
+	setInferenceBackend(value: InferenceBackend): S2TInference;
+
 	serializeBinary(): Uint8Array;
 	toObject(includeInstance?: boolean): S2TInference.AsObject;
 	static toObject(includeInstance: boolean, msg: S2TInference): S2TInference.AsObject;
@@ -725,6 +740,7 @@ export namespace S2TInference {
 	export type AsObject = {
 		acousticModels?: AcousticModels.AsObject;
 		languageModels?: LanguageModels.AsObject;
+		inferenceBackend: InferenceBackend;
 	};
 }
 
@@ -1511,6 +1527,11 @@ export namespace TrainUserLanguageModelRequest {
 	};
 }
 
+export enum InferenceBackend {
+	INFERENCE_BACKEND_UNKNOWN = 0,
+	INFERENCE_BACKEND_PYTORCH = 1,
+	INFERENCE_BACKEND_FLAX = 2
+}
 export enum Decoding {
 	DEFAULT = 0,
 	GREEDY = 1,
