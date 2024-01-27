@@ -1956,9 +1956,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 		var f,
 			obj = {
 				transcribeNotFinal: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-				startOfUtteranceThreshold: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-				endOfUtteranceThreshold: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-				nextChunkTimeout: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
+				nextChunkTimeout: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0)
 			};
 
 		if (includeInstance) {
@@ -1999,14 +1997,6 @@ proto.ondewo.s2t.UtteranceDetectionOptions.deserializeBinaryFromReader = functio
 				break;
 			case 2:
 				var value = /** @type {number} */ (reader.readFloat());
-				msg.setStartOfUtteranceThreshold(value);
-				break;
-			case 3:
-				var value = /** @type {number} */ (reader.readFloat());
-				msg.setEndOfUtteranceThreshold(value);
-				break;
-			case 4:
-				var value = /** @type {number} */ (reader.readFloat());
 				msg.setNextChunkTimeout(value);
 				break;
 			default:
@@ -2040,17 +2030,9 @@ proto.ondewo.s2t.UtteranceDetectionOptions.serializeBinaryToWriter = function (m
 	if (f != null) {
 		writer.writeBool(1, f);
 	}
-	f = message.getStartOfUtteranceThreshold();
-	if (f !== 0.0) {
-		writer.writeFloat(2, f);
-	}
-	f = message.getEndOfUtteranceThreshold();
-	if (f !== 0.0) {
-		writer.writeFloat(3, f);
-	}
 	f = message.getNextChunkTimeout();
 	if (f !== 0.0) {
-		writer.writeFloat(4, f);
+		writer.writeFloat(2, f);
 	}
 };
 
@@ -2087,10 +2069,10 @@ proto.ondewo.s2t.UtteranceDetectionOptions.prototype.hasTranscribeNotFinal = fun
 };
 
 /**
- * optional float start_of_utterance_threshold = 2;
+ * optional float next_chunk_timeout = 2;
  * @return {number}
  */
-proto.ondewo.s2t.UtteranceDetectionOptions.prototype.getStartOfUtteranceThreshold = function () {
+proto.ondewo.s2t.UtteranceDetectionOptions.prototype.getNextChunkTimeout = function () {
 	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 2, 0.0));
 };
 
@@ -2098,40 +2080,8 @@ proto.ondewo.s2t.UtteranceDetectionOptions.prototype.getStartOfUtteranceThreshol
  * @param {number} value
  * @return {!proto.ondewo.s2t.UtteranceDetectionOptions} returns this
  */
-proto.ondewo.s2t.UtteranceDetectionOptions.prototype.setStartOfUtteranceThreshold = function (value) {
-	return jspb.Message.setProto3FloatField(this, 2, value);
-};
-
-/**
- * optional float end_of_utterance_threshold = 3;
- * @return {number}
- */
-proto.ondewo.s2t.UtteranceDetectionOptions.prototype.getEndOfUtteranceThreshold = function () {
-	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 3, 0.0));
-};
-
-/**
- * @param {number} value
- * @return {!proto.ondewo.s2t.UtteranceDetectionOptions} returns this
- */
-proto.ondewo.s2t.UtteranceDetectionOptions.prototype.setEndOfUtteranceThreshold = function (value) {
-	return jspb.Message.setProto3FloatField(this, 3, value);
-};
-
-/**
- * optional float next_chunk_timeout = 4;
- * @return {number}
- */
-proto.ondewo.s2t.UtteranceDetectionOptions.prototype.getNextChunkTimeout = function () {
-	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
-};
-
-/**
- * @param {number} value
- * @return {!proto.ondewo.s2t.UtteranceDetectionOptions} returns this
- */
 proto.ondewo.s2t.UtteranceDetectionOptions.prototype.setNextChunkTimeout = function (value) {
-	return jspb.Message.setProto3FloatField(this, 4, value);
+	return jspb.Message.setProto3FloatField(this, 2, value);
 };
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -8114,9 +8064,7 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 				decodingMethod: jspb.Message.getFieldWithDefault(msg, 2, ''),
 				samplingRate: jspb.Message.getFieldWithDefault(msg, 3, 0),
 				minAudioChunkSize: jspb.Message.getFieldWithDefault(msg, 4, 0),
-				startOfUtteranceThreshold: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-				endOfUtteranceThreshold: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
-				nextChunkTimeout: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0)
+				nextChunkTimeout: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0)
 			};
 
 		if (includeInstance) {
@@ -8169,14 +8117,6 @@ proto.ondewo.s2t.StreamingSpeechRecognition.deserializeBinaryFromReader = functi
 				break;
 			case 5:
 				var value = /** @type {number} */ (reader.readFloat());
-				msg.setStartOfUtteranceThreshold(value);
-				break;
-			case 6:
-				var value = /** @type {number} */ (reader.readFloat());
-				msg.setEndOfUtteranceThreshold(value);
-				break;
-			case 7:
-				var value = /** @type {number} */ (reader.readFloat());
 				msg.setNextChunkTimeout(value);
 				break;
 			default:
@@ -8222,17 +8162,9 @@ proto.ondewo.s2t.StreamingSpeechRecognition.serializeBinaryToWriter = function (
 	if (f !== 0) {
 		writer.writeInt64(4, f);
 	}
-	f = message.getStartOfUtteranceThreshold();
-	if (f !== 0.0) {
-		writer.writeFloat(5, f);
-	}
-	f = message.getEndOfUtteranceThreshold();
-	if (f !== 0.0) {
-		writer.writeFloat(6, f);
-	}
 	f = message.getNextChunkTimeout();
 	if (f !== 0.0) {
-		writer.writeFloat(7, f);
+		writer.writeFloat(5, f);
 	}
 };
 
@@ -8301,10 +8233,10 @@ proto.ondewo.s2t.StreamingSpeechRecognition.prototype.setMinAudioChunkSize = fun
 };
 
 /**
- * optional float start_of_utterance_threshold = 5;
+ * optional float next_chunk_timeout = 5;
  * @return {number}
  */
-proto.ondewo.s2t.StreamingSpeechRecognition.prototype.getStartOfUtteranceThreshold = function () {
+proto.ondewo.s2t.StreamingSpeechRecognition.prototype.getNextChunkTimeout = function () {
 	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
@@ -8312,40 +8244,8 @@ proto.ondewo.s2t.StreamingSpeechRecognition.prototype.getStartOfUtteranceThresho
  * @param {number} value
  * @return {!proto.ondewo.s2t.StreamingSpeechRecognition} returns this
  */
-proto.ondewo.s2t.StreamingSpeechRecognition.prototype.setStartOfUtteranceThreshold = function (value) {
-	return jspb.Message.setProto3FloatField(this, 5, value);
-};
-
-/**
- * optional float end_of_utterance_threshold = 6;
- * @return {number}
- */
-proto.ondewo.s2t.StreamingSpeechRecognition.prototype.getEndOfUtteranceThreshold = function () {
-	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
-};
-
-/**
- * @param {number} value
- * @return {!proto.ondewo.s2t.StreamingSpeechRecognition} returns this
- */
-proto.ondewo.s2t.StreamingSpeechRecognition.prototype.setEndOfUtteranceThreshold = function (value) {
-	return jspb.Message.setProto3FloatField(this, 6, value);
-};
-
-/**
- * optional float next_chunk_timeout = 7;
- * @return {number}
- */
-proto.ondewo.s2t.StreamingSpeechRecognition.prototype.getNextChunkTimeout = function () {
-	return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
-};
-
-/**
- * @param {number} value
- * @return {!proto.ondewo.s2t.StreamingSpeechRecognition} returns this
- */
 proto.ondewo.s2t.StreamingSpeechRecognition.prototype.setNextChunkTimeout = function (value) {
-	return jspb.Message.setProto3FloatField(this, 7, value);
+	return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
