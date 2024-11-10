@@ -15,6 +15,13 @@
 
 
 ***************** 
+## Release ONDEWO S2T Typescript Client 6.0.0 
+ 
+### Improvements 
+ * Tracking API Version [6.0.0](https://github.com/ondewo/ondewo-s2t-api/releases/tag/6.0.0) ( [Documentation](https://ondewo.github.io/ondewo-s2t-api/) ) 
+
+
+***************** 
 ## Release ONDEWO S2T Typescript Client 5.7.0 
  
 ### Improvements 
