@@ -1634,6 +1634,16 @@ export class TurnDetectionOptions extends jspb.Message {
   hasLlmRequestTimeout(): boolean;
   clearLlmRequestTimeout(): TurnDetectionOptions;
 
+  getLlmModelName(): string;
+  setLlmModelName(value: string): TurnDetectionOptions;
+  hasLlmModelName(): boolean;
+  clearLlmModelName(): TurnDetectionOptions;
+
+  getLlmHeaders(): google_protobuf_struct_pb.Struct | undefined;
+  setLlmHeaders(value?: google_protobuf_struct_pb.Struct): TurnDetectionOptions;
+  hasLlmHeaders(): boolean;
+  clearLlmHeaders(): TurnDetectionOptions;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TurnDetectionOptions.AsObject;
   static toObject(includeInstance: boolean, msg: TurnDetectionOptions): TurnDetectionOptions.AsObject;
@@ -1649,6 +1659,8 @@ export namespace TurnDetectionOptions {
     llmHost?: string,
     llmPort?: number,
     llmRequestTimeout?: number,
+    llmModelName?: string,
+    llmHeaders?: google_protobuf_struct_pb.Struct.AsObject,
   }
 
   export enum ActiveCase { 
@@ -1674,6 +1686,16 @@ export namespace TurnDetectionOptions {
   export enum LlmRequestTimeoutCase { 
     _LLM_REQUEST_TIMEOUT_NOT_SET = 0,
     LLM_REQUEST_TIMEOUT = 5,
+  }
+
+  export enum LlmModelNameCase { 
+    _LLM_MODEL_NAME_NOT_SET = 0,
+    LLM_MODEL_NAME = 6,
+  }
+
+  export enum LlmHeadersCase { 
+    _LLM_HEADERS_NOT_SET = 0,
+    LLM_HEADERS = 7,
   }
 }
 
@@ -1912,6 +1934,16 @@ export class S2tLlmPostProcessing extends jspb.Message {
   hasS2tLlmPostProcessingUserPromptOptions(): boolean;
   clearS2tLlmPostProcessingUserPromptOptions(): S2tLlmPostProcessing;
 
+  getLlmModelName(): string;
+  setLlmModelName(value: string): S2tLlmPostProcessing;
+  hasLlmModelName(): boolean;
+  clearLlmModelName(): S2tLlmPostProcessing;
+
+  getLlmHeaders(): google_protobuf_struct_pb.Struct | undefined;
+  setLlmHeaders(value?: google_protobuf_struct_pb.Struct): S2tLlmPostProcessing;
+  hasLlmHeaders(): boolean;
+  clearLlmHeaders(): S2tLlmPostProcessing;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): S2tLlmPostProcessing.AsObject;
   static toObject(includeInstance: boolean, msg: S2tLlmPostProcessing): S2tLlmPostProcessing.AsObject;
@@ -1934,6 +1966,8 @@ export namespace S2tLlmPostProcessing {
     s2tLlmPostProcessingNormalizationOptions?: S2tLlmPostProcessingNormalizationOptions.AsObject,
     s2tLlmPostProcessingSummarizationOptions?: S2tLlmPostProcessingSummarizationOptions.AsObject,
     s2tLlmPostProcessingUserPromptOptions?: S2tLlmPostProcessingUserPromptOptions.AsObject,
+    llmModelName?: string,
+    llmHeaders?: google_protobuf_struct_pb.Struct.AsObject,
   }
 
   export enum LlmHostCase { 
@@ -1994,6 +2028,16 @@ export namespace S2tLlmPostProcessing {
   export enum S2tLlmPostProcessingUserPromptOptionsCase { 
     _S2T_LLM_POST_PROCESSING_USER_PROMPT_OPTIONS_NOT_SET = 0,
     S2T_LLM_POST_PROCESSING_USER_PROMPT_OPTIONS = 12,
+  }
+
+  export enum LlmModelNameCase { 
+    _LLM_MODEL_NAME_NOT_SET = 0,
+    LLM_MODEL_NAME = 13,
+  }
+
+  export enum LlmHeadersCase { 
+    _LLM_HEADERS_NOT_SET = 0,
+    LLM_HEADERS = 14,
   }
 }
 
