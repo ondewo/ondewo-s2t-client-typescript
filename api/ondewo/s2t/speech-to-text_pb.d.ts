@@ -1619,30 +1619,20 @@ export class TurnDetectionOptions extends jspb.Message {
   hasFullUtteranceDeployment(): boolean;
   clearFullUtteranceDeployment(): TurnDetectionOptions;
 
-  getLlmHost(): string;
-  setLlmHost(value: string): TurnDetectionOptions;
-  hasLlmHost(): boolean;
-  clearLlmHost(): TurnDetectionOptions;
+  getTurnDetectionSystemPrompt(): string;
+  setTurnDetectionSystemPrompt(value: string): TurnDetectionOptions;
+  hasTurnDetectionSystemPrompt(): boolean;
+  clearTurnDetectionSystemPrompt(): TurnDetectionOptions;
 
-  getLlmPort(): number;
-  setLlmPort(value: number): TurnDetectionOptions;
-  hasLlmPort(): boolean;
-  clearLlmPort(): TurnDetectionOptions;
+  getTurnDetectionUserPrompt(): string;
+  setTurnDetectionUserPrompt(value: string): TurnDetectionOptions;
+  hasTurnDetectionUserPrompt(): boolean;
+  clearTurnDetectionUserPrompt(): TurnDetectionOptions;
 
-  getLlmRequestTimeout(): number;
-  setLlmRequestTimeout(value: number): TurnDetectionOptions;
-  hasLlmRequestTimeout(): boolean;
-  clearLlmRequestTimeout(): TurnDetectionOptions;
-
-  getLlmModelName(): string;
-  setLlmModelName(value: string): TurnDetectionOptions;
-  hasLlmModelName(): boolean;
-  clearLlmModelName(): TurnDetectionOptions;
-
-  getLlmHeaders(): google_protobuf_struct_pb.Struct | undefined;
-  setLlmHeaders(value?: google_protobuf_struct_pb.Struct): TurnDetectionOptions;
-  hasLlmHeaders(): boolean;
-  clearLlmHeaders(): TurnDetectionOptions;
+  getTurnDetectionLlmOpenaiOptions(): OpenaiLlmOptions | undefined;
+  setTurnDetectionLlmOpenaiOptions(value?: OpenaiLlmOptions): TurnDetectionOptions;
+  hasTurnDetectionLlmOpenaiOptions(): boolean;
+  clearTurnDetectionLlmOpenaiOptions(): TurnDetectionOptions;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TurnDetectionOptions.AsObject;
@@ -1656,11 +1646,9 @@ export namespace TurnDetectionOptions {
   export type AsObject = {
     active?: boolean,
     fullUtteranceDeployment?: boolean,
-    llmHost?: string,
-    llmPort?: number,
-    llmRequestTimeout?: number,
-    llmModelName?: string,
-    llmHeaders?: google_protobuf_struct_pb.Struct.AsObject,
+    turnDetectionSystemPrompt?: string,
+    turnDetectionUserPrompt?: string,
+    turnDetectionLlmOpenaiOptions?: OpenaiLlmOptions.AsObject,
   }
 
   export enum ActiveCase { 
@@ -1673,29 +1661,388 @@ export namespace TurnDetectionOptions {
     FULL_UTTERANCE_DEPLOYMENT = 2,
   }
 
-  export enum LlmHostCase { 
-    _LLM_HOST_NOT_SET = 0,
-    LLM_HOST = 3,
+  export enum TurnDetectionSystemPromptCase { 
+    _TURN_DETECTION_SYSTEM_PROMPT_NOT_SET = 0,
+    TURN_DETECTION_SYSTEM_PROMPT = 3,
   }
 
-  export enum LlmPortCase { 
-    _LLM_PORT_NOT_SET = 0,
-    LLM_PORT = 4,
+  export enum TurnDetectionUserPromptCase { 
+    _TURN_DETECTION_USER_PROMPT_NOT_SET = 0,
+    TURN_DETECTION_USER_PROMPT = 4,
   }
 
-  export enum LlmRequestTimeoutCase { 
-    _LLM_REQUEST_TIMEOUT_NOT_SET = 0,
-    LLM_REQUEST_TIMEOUT = 5,
+  export enum TurnDetectionLlmOpenaiOptionsCase { 
+    _TURN_DETECTION_LLM_OPENAI_OPTIONS_NOT_SET = 0,
+    TURN_DETECTION_LLM_OPENAI_OPTIONS = 5,
+  }
+}
+
+export class OpenaiLlmOptions extends jspb.Message {
+  getApiKey(): string;
+  setApiKey(value: string): OpenaiLlmOptions;
+  hasApiKey(): boolean;
+  clearApiKey(): OpenaiLlmOptions;
+
+  getOrganization(): string;
+  setOrganization(value: string): OpenaiLlmOptions;
+  hasOrganization(): boolean;
+  clearOrganization(): OpenaiLlmOptions;
+
+  getProject(): string;
+  setProject(value: string): OpenaiLlmOptions;
+  hasProject(): boolean;
+  clearProject(): OpenaiLlmOptions;
+
+  getWebhookSecret(): string;
+  setWebhookSecret(value: string): OpenaiLlmOptions;
+  hasWebhookSecret(): boolean;
+  clearWebhookSecret(): OpenaiLlmOptions;
+
+  getBaseUrl(): string;
+  setBaseUrl(value: string): OpenaiLlmOptions;
+  hasBaseUrl(): boolean;
+  clearBaseUrl(): OpenaiLlmOptions;
+
+  getWebsocketBaseUrl(): string;
+  setWebsocketBaseUrl(value: string): OpenaiLlmOptions;
+  hasWebsocketBaseUrl(): boolean;
+  clearWebsocketBaseUrl(): OpenaiLlmOptions;
+
+  getTimeout(): number;
+  setTimeout(value: number): OpenaiLlmOptions;
+  hasTimeout(): boolean;
+  clearTimeout(): OpenaiLlmOptions;
+
+  getMaxRetries(): number;
+  setMaxRetries(value: number): OpenaiLlmOptions;
+  hasMaxRetries(): boolean;
+  clearMaxRetries(): OpenaiLlmOptions;
+
+  getDefaultHeadersMap(): jspb.Map<string, string>;
+  clearDefaultHeadersMap(): OpenaiLlmOptions;
+
+  getDefaultQuery(): google_protobuf_struct_pb.Struct | undefined;
+  setDefaultQuery(value?: google_protobuf_struct_pb.Struct): OpenaiLlmOptions;
+  hasDefaultQuery(): boolean;
+  clearDefaultQuery(): OpenaiLlmOptions;
+
+  getStrictResponseValidation(): boolean;
+  setStrictResponseValidation(value: boolean): OpenaiLlmOptions;
+  hasStrictResponseValidation(): boolean;
+  clearStrictResponseValidation(): OpenaiLlmOptions;
+
+  getModel(): string;
+  setModel(value: string): OpenaiLlmOptions;
+  hasModel(): boolean;
+  clearModel(): OpenaiLlmOptions;
+
+  getFrequencyPenalty(): number;
+  setFrequencyPenalty(value: number): OpenaiLlmOptions;
+  hasFrequencyPenalty(): boolean;
+  clearFrequencyPenalty(): OpenaiLlmOptions;
+
+  getLogitBiasMap(): jspb.Map<string, number>;
+  clearLogitBiasMap(): OpenaiLlmOptions;
+
+  getLogprobs(): boolean;
+  setLogprobs(value: boolean): OpenaiLlmOptions;
+  hasLogprobs(): boolean;
+  clearLogprobs(): OpenaiLlmOptions;
+
+  getMaxCompletionTokens(): number;
+  setMaxCompletionTokens(value: number): OpenaiLlmOptions;
+  hasMaxCompletionTokens(): boolean;
+  clearMaxCompletionTokens(): OpenaiLlmOptions;
+
+  getMaxTokens(): number;
+  setMaxTokens(value: number): OpenaiLlmOptions;
+  hasMaxTokens(): boolean;
+  clearMaxTokens(): OpenaiLlmOptions;
+
+  getMetadata(): google_protobuf_struct_pb.Struct | undefined;
+  setMetadata(value?: google_protobuf_struct_pb.Struct): OpenaiLlmOptions;
+  hasMetadata(): boolean;
+  clearMetadata(): OpenaiLlmOptions;
+
+  getN(): number;
+  setN(value: number): OpenaiLlmOptions;
+  hasN(): boolean;
+  clearN(): OpenaiLlmOptions;
+
+  getPresencePenalty(): number;
+  setPresencePenalty(value: number): OpenaiLlmOptions;
+  hasPresencePenalty(): boolean;
+  clearPresencePenalty(): OpenaiLlmOptions;
+
+  getPromptCacheKey(): string;
+  setPromptCacheKey(value: string): OpenaiLlmOptions;
+  hasPromptCacheKey(): boolean;
+  clearPromptCacheKey(): OpenaiLlmOptions;
+
+  getReasoningEffort(): ReasoningEffort;
+  setReasoningEffort(value: ReasoningEffort): OpenaiLlmOptions;
+  hasReasoningEffort(): boolean;
+  clearReasoningEffort(): OpenaiLlmOptions;
+
+  getSeed(): number;
+  setSeed(value: number): OpenaiLlmOptions;
+  hasSeed(): boolean;
+  clearSeed(): OpenaiLlmOptions;
+
+  getServiceTier(): ServiceTier;
+  setServiceTier(value: ServiceTier): OpenaiLlmOptions;
+  hasServiceTier(): boolean;
+  clearServiceTier(): OpenaiLlmOptions;
+
+  getStopList(): Array<string>;
+  setStopList(value: Array<string>): OpenaiLlmOptions;
+  clearStopList(): OpenaiLlmOptions;
+  addStop(value: string, index?: number): OpenaiLlmOptions;
+
+  getStore(): boolean;
+  setStore(value: boolean): OpenaiLlmOptions;
+  hasStore(): boolean;
+  clearStore(): OpenaiLlmOptions;
+
+  getTemperature(): number;
+  setTemperature(value: number): OpenaiLlmOptions;
+  hasTemperature(): boolean;
+  clearTemperature(): OpenaiLlmOptions;
+
+  getTopLogprobs(): number;
+  setTopLogprobs(value: number): OpenaiLlmOptions;
+  hasTopLogprobs(): boolean;
+  clearTopLogprobs(): OpenaiLlmOptions;
+
+  getTopP(): number;
+  setTopP(value: number): OpenaiLlmOptions;
+  hasTopP(): boolean;
+  clearTopP(): OpenaiLlmOptions;
+
+  getUser(): string;
+  setUser(value: string): OpenaiLlmOptions;
+  hasUser(): boolean;
+  clearUser(): OpenaiLlmOptions;
+
+  getVerbosity(): Verbosity;
+  setVerbosity(value: Verbosity): OpenaiLlmOptions;
+  hasVerbosity(): boolean;
+  clearVerbosity(): OpenaiLlmOptions;
+
+  getExtraHeaders(): google_protobuf_struct_pb.Struct | undefined;
+  setExtraHeaders(value?: google_protobuf_struct_pb.Struct): OpenaiLlmOptions;
+  hasExtraHeaders(): boolean;
+  clearExtraHeaders(): OpenaiLlmOptions;
+
+  getExtraQuery(): google_protobuf_struct_pb.Struct | undefined;
+  setExtraQuery(value?: google_protobuf_struct_pb.Struct): OpenaiLlmOptions;
+  hasExtraQuery(): boolean;
+  clearExtraQuery(): OpenaiLlmOptions;
+
+  getExtraBody(): google_protobuf_struct_pb.Struct | undefined;
+  setExtraBody(value?: google_protobuf_struct_pb.Struct): OpenaiLlmOptions;
+  hasExtraBody(): boolean;
+  clearExtraBody(): OpenaiLlmOptions;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OpenaiLlmOptions.AsObject;
+  static toObject(includeInstance: boolean, msg: OpenaiLlmOptions): OpenaiLlmOptions.AsObject;
+  static serializeBinaryToWriter(message: OpenaiLlmOptions, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OpenaiLlmOptions;
+  static deserializeBinaryFromReader(message: OpenaiLlmOptions, reader: jspb.BinaryReader): OpenaiLlmOptions;
+}
+
+export namespace OpenaiLlmOptions {
+  export type AsObject = {
+    apiKey?: string,
+    organization?: string,
+    project?: string,
+    webhookSecret?: string,
+    baseUrl?: string,
+    websocketBaseUrl?: string,
+    timeout?: number,
+    maxRetries?: number,
+    defaultHeadersMap: Array<[string, string]>,
+    defaultQuery?: google_protobuf_struct_pb.Struct.AsObject,
+    strictResponseValidation?: boolean,
+    model?: string,
+    frequencyPenalty?: number,
+    logitBiasMap: Array<[string, number]>,
+    logprobs?: boolean,
+    maxCompletionTokens?: number,
+    maxTokens?: number,
+    metadata?: google_protobuf_struct_pb.Struct.AsObject,
+    n?: number,
+    presencePenalty?: number,
+    promptCacheKey?: string,
+    reasoningEffort?: ReasoningEffort,
+    seed?: number,
+    serviceTier?: ServiceTier,
+    stopList: Array<string>,
+    store?: boolean,
+    temperature?: number,
+    topLogprobs?: number,
+    topP?: number,
+    user?: string,
+    verbosity?: Verbosity,
+    extraHeaders?: google_protobuf_struct_pb.Struct.AsObject,
+    extraQuery?: google_protobuf_struct_pb.Struct.AsObject,
+    extraBody?: google_protobuf_struct_pb.Struct.AsObject,
   }
 
-  export enum LlmModelNameCase { 
-    _LLM_MODEL_NAME_NOT_SET = 0,
-    LLM_MODEL_NAME = 6,
+  export enum ApiKeyCase { 
+    _API_KEY_NOT_SET = 0,
+    API_KEY = 1,
   }
 
-  export enum LlmHeadersCase { 
-    _LLM_HEADERS_NOT_SET = 0,
-    LLM_HEADERS = 7,
+  export enum OrganizationCase { 
+    _ORGANIZATION_NOT_SET = 0,
+    ORGANIZATION = 2,
+  }
+
+  export enum ProjectCase { 
+    _PROJECT_NOT_SET = 0,
+    PROJECT = 3,
+  }
+
+  export enum WebhookSecretCase { 
+    _WEBHOOK_SECRET_NOT_SET = 0,
+    WEBHOOK_SECRET = 4,
+  }
+
+  export enum BaseUrlCase { 
+    _BASE_URL_NOT_SET = 0,
+    BASE_URL = 5,
+  }
+
+  export enum WebsocketBaseUrlCase { 
+    _WEBSOCKET_BASE_URL_NOT_SET = 0,
+    WEBSOCKET_BASE_URL = 6,
+  }
+
+  export enum TimeoutCase { 
+    _TIMEOUT_NOT_SET = 0,
+    TIMEOUT = 7,
+  }
+
+  export enum MaxRetriesCase { 
+    _MAX_RETRIES_NOT_SET = 0,
+    MAX_RETRIES = 8,
+  }
+
+  export enum DefaultQueryCase { 
+    _DEFAULT_QUERY_NOT_SET = 0,
+    DEFAULT_QUERY = 10,
+  }
+
+  export enum StrictResponseValidationCase { 
+    _STRICT_RESPONSE_VALIDATION_NOT_SET = 0,
+    STRICT_RESPONSE_VALIDATION = 11,
+  }
+
+  export enum ModelCase { 
+    _MODEL_NOT_SET = 0,
+    MODEL = 12,
+  }
+
+  export enum FrequencyPenaltyCase { 
+    _FREQUENCY_PENALTY_NOT_SET = 0,
+    FREQUENCY_PENALTY = 13,
+  }
+
+  export enum LogprobsCase { 
+    _LOGPROBS_NOT_SET = 0,
+    LOGPROBS = 15,
+  }
+
+  export enum MaxCompletionTokensCase { 
+    _MAX_COMPLETION_TOKENS_NOT_SET = 0,
+    MAX_COMPLETION_TOKENS = 16,
+  }
+
+  export enum MaxTokensCase { 
+    _MAX_TOKENS_NOT_SET = 0,
+    MAX_TOKENS = 17,
+  }
+
+  export enum MetadataCase { 
+    _METADATA_NOT_SET = 0,
+    METADATA = 18,
+  }
+
+  export enum NCase { 
+    _N_NOT_SET = 0,
+    N = 19,
+  }
+
+  export enum PresencePenaltyCase { 
+    _PRESENCE_PENALTY_NOT_SET = 0,
+    PRESENCE_PENALTY = 20,
+  }
+
+  export enum PromptCacheKeyCase { 
+    _PROMPT_CACHE_KEY_NOT_SET = 0,
+    PROMPT_CACHE_KEY = 21,
+  }
+
+  export enum ReasoningEffortCase { 
+    _REASONING_EFFORT_NOT_SET = 0,
+    REASONING_EFFORT = 22,
+  }
+
+  export enum SeedCase { 
+    _SEED_NOT_SET = 0,
+    SEED = 23,
+  }
+
+  export enum ServiceTierCase { 
+    _SERVICE_TIER_NOT_SET = 0,
+    SERVICE_TIER = 24,
+  }
+
+  export enum StoreCase { 
+    _STORE_NOT_SET = 0,
+    STORE = 26,
+  }
+
+  export enum TemperatureCase { 
+    _TEMPERATURE_NOT_SET = 0,
+    TEMPERATURE = 27,
+  }
+
+  export enum TopLogprobsCase { 
+    _TOP_LOGPROBS_NOT_SET = 0,
+    TOP_LOGPROBS = 28,
+  }
+
+  export enum TopPCase { 
+    _TOP_P_NOT_SET = 0,
+    TOP_P = 29,
+  }
+
+  export enum UserCase { 
+    _USER_NOT_SET = 0,
+    USER = 30,
+  }
+
+  export enum VerbosityCase { 
+    _VERBOSITY_NOT_SET = 0,
+    VERBOSITY = 31,
+  }
+
+  export enum ExtraHeadersCase { 
+    _EXTRA_HEADERS_NOT_SET = 0,
+    EXTRA_HEADERS = 32,
+  }
+
+  export enum ExtraQueryCase { 
+    _EXTRA_QUERY_NOT_SET = 0,
+    EXTRA_QUERY = 33,
+  }
+
+  export enum ExtraBodyCase { 
+    _EXTRA_BODY_NOT_SET = 0,
+    EXTRA_BODY = 34,
   }
 }
 
@@ -1874,38 +2221,38 @@ export namespace S2tNormalization {
 }
 
 export class S2tLlmPostProcessing extends jspb.Message {
-  getLlmHost(): string;
-  setLlmHost(value: string): S2tLlmPostProcessing;
-  hasLlmHost(): boolean;
-  clearLlmHost(): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingOpenaiOptions(): OpenaiLlmOptions | undefined;
+  setS2tLlmPostProcessingOpenaiOptions(value?: OpenaiLlmOptions): S2tLlmPostProcessing;
+  hasS2tLlmPostProcessingOpenaiOptions(): boolean;
+  clearS2tLlmPostProcessingOpenaiOptions(): S2tLlmPostProcessing;
 
-  getLlmPort(): number;
-  setLlmPort(value: number): S2tLlmPostProcessing;
-  hasLlmPort(): boolean;
-  clearLlmPort(): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingSystemPrompt(): string;
+  setS2tLlmPostProcessingSystemPrompt(value: string): S2tLlmPostProcessing;
+  hasS2tLlmPostProcessingSystemPrompt(): boolean;
+  clearS2tLlmPostProcessingSystemPrompt(): S2tLlmPostProcessing;
 
-  getLlmRequestTimeout(): number;
-  setLlmRequestTimeout(value: number): S2tLlmPostProcessing;
-  hasLlmRequestTimeout(): boolean;
-  clearLlmRequestTimeout(): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingEndingPrompt(): string;
+  setS2tLlmPostProcessingEndingPrompt(value: string): S2tLlmPostProcessing;
+  hasS2tLlmPostProcessingEndingPrompt(): boolean;
+  clearS2tLlmPostProcessingEndingPrompt(): S2tLlmPostProcessing;
 
-  getS2tLlmPostProcessingCasingOptions(): S2tLlmPostProcessingCasingOptions | undefined;
-  setS2tLlmPostProcessingCasingOptions(value?: S2tLlmPostProcessingCasingOptions): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingCasingOptions(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setS2tLlmPostProcessingCasingOptions(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessing;
   hasS2tLlmPostProcessingCasingOptions(): boolean;
   clearS2tLlmPostProcessingCasingOptions(): S2tLlmPostProcessing;
 
-  getS2tLlmPostProcessingPunctuationOptions(): S2tLlmPostProcessingPunctuationOptions | undefined;
-  setS2tLlmPostProcessingPunctuationOptions(value?: S2tLlmPostProcessingPunctuationOptions): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingPunctuationOptions(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setS2tLlmPostProcessingPunctuationOptions(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessing;
   hasS2tLlmPostProcessingPunctuationOptions(): boolean;
   clearS2tLlmPostProcessingPunctuationOptions(): S2tLlmPostProcessing;
 
-  getS2tLlmPostProcessingSpellingCorrectionOptions(): S2tLlmPostProcessingSpellCorrectionOptions | undefined;
-  setS2tLlmPostProcessingSpellingCorrectionOptions(value?: S2tLlmPostProcessingSpellCorrectionOptions): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingSpellingCorrectionOptions(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setS2tLlmPostProcessingSpellingCorrectionOptions(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessing;
   hasS2tLlmPostProcessingSpellingCorrectionOptions(): boolean;
   clearS2tLlmPostProcessingSpellingCorrectionOptions(): S2tLlmPostProcessing;
 
-  getS2tLlmPostProcessingSemanticCorrectionOptions(): S2tLlmPostProcessingSemanticCorrectionOptions | undefined;
-  setS2tLlmPostProcessingSemanticCorrectionOptions(value?: S2tLlmPostProcessingSemanticCorrectionOptions): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingSemanticCorrectionOptions(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setS2tLlmPostProcessingSemanticCorrectionOptions(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessing;
   hasS2tLlmPostProcessingSemanticCorrectionOptions(): boolean;
   clearS2tLlmPostProcessingSemanticCorrectionOptions(): S2tLlmPostProcessing;
 
@@ -1929,20 +2276,10 @@ export class S2tLlmPostProcessing extends jspb.Message {
   hasS2tLlmPostProcessingSummarizationOptions(): boolean;
   clearS2tLlmPostProcessingSummarizationOptions(): S2tLlmPostProcessing;
 
-  getS2tLlmPostProcessingUserPromptOptions(): S2tLlmPostProcessingUserPromptOptions | undefined;
-  setS2tLlmPostProcessingUserPromptOptions(value?: S2tLlmPostProcessingUserPromptOptions): S2tLlmPostProcessing;
+  getS2tLlmPostProcessingUserPromptOptions(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setS2tLlmPostProcessingUserPromptOptions(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessing;
   hasS2tLlmPostProcessingUserPromptOptions(): boolean;
   clearS2tLlmPostProcessingUserPromptOptions(): S2tLlmPostProcessing;
-
-  getLlmModelName(): string;
-  setLlmModelName(value: string): S2tLlmPostProcessing;
-  hasLlmModelName(): boolean;
-  clearLlmModelName(): S2tLlmPostProcessing;
-
-  getLlmHeaders(): google_protobuf_struct_pb.Struct | undefined;
-  setLlmHeaders(value?: google_protobuf_struct_pb.Struct): S2tLlmPostProcessing;
-  hasLlmHeaders(): boolean;
-  clearLlmHeaders(): S2tLlmPostProcessing;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): S2tLlmPostProcessing.AsObject;
@@ -1954,35 +2291,33 @@ export class S2tLlmPostProcessing extends jspb.Message {
 
 export namespace S2tLlmPostProcessing {
   export type AsObject = {
-    llmHost?: string,
-    llmPort?: number,
-    llmRequestTimeout?: number,
-    s2tLlmPostProcessingCasingOptions?: S2tLlmPostProcessingCasingOptions.AsObject,
-    s2tLlmPostProcessingPunctuationOptions?: S2tLlmPostProcessingPunctuationOptions.AsObject,
-    s2tLlmPostProcessingSpellingCorrectionOptions?: S2tLlmPostProcessingSpellCorrectionOptions.AsObject,
-    s2tLlmPostProcessingSemanticCorrectionOptions?: S2tLlmPostProcessingSemanticCorrectionOptions.AsObject,
+    s2tLlmPostProcessingOpenaiOptions?: OpenaiLlmOptions.AsObject,
+    s2tLlmPostProcessingSystemPrompt?: string,
+    s2tLlmPostProcessingEndingPrompt?: string,
+    s2tLlmPostProcessingCasingOptions?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    s2tLlmPostProcessingPunctuationOptions?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    s2tLlmPostProcessingSpellingCorrectionOptions?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    s2tLlmPostProcessingSemanticCorrectionOptions?: S2tLlmPostProcessingSubTaskOptions.AsObject,
     s2tLlmPostProcessingTranslationOptions?: S2tLlmPostProcessingTranslationOptions.AsObject,
     s2tLlmPostProcessingInverseNormalizationOptions?: S2tLlmPostProcessingInverseNormalizationOptions.AsObject,
     s2tLlmPostProcessingNormalizationOptions?: S2tLlmPostProcessingNormalizationOptions.AsObject,
     s2tLlmPostProcessingSummarizationOptions?: S2tLlmPostProcessingSummarizationOptions.AsObject,
-    s2tLlmPostProcessingUserPromptOptions?: S2tLlmPostProcessingUserPromptOptions.AsObject,
-    llmModelName?: string,
-    llmHeaders?: google_protobuf_struct_pb.Struct.AsObject,
+    s2tLlmPostProcessingUserPromptOptions?: S2tLlmPostProcessingSubTaskOptions.AsObject,
   }
 
-  export enum LlmHostCase { 
-    _LLM_HOST_NOT_SET = 0,
-    LLM_HOST = 1,
+  export enum S2tLlmPostProcessingOpenaiOptionsCase { 
+    _S2T_LLM_POST_PROCESSING_OPENAI_OPTIONS_NOT_SET = 0,
+    S2T_LLM_POST_PROCESSING_OPENAI_OPTIONS = 1,
   }
 
-  export enum LlmPortCase { 
-    _LLM_PORT_NOT_SET = 0,
-    LLM_PORT = 2,
+  export enum S2tLlmPostProcessingSystemPromptCase { 
+    _S2T_LLM_POST_PROCESSING_SYSTEM_PROMPT_NOT_SET = 0,
+    S2T_LLM_POST_PROCESSING_SYSTEM_PROMPT = 2,
   }
 
-  export enum LlmRequestTimeoutCase { 
-    _LLM_REQUEST_TIMEOUT_NOT_SET = 0,
-    LLM_REQUEST_TIMEOUT = 3,
+  export enum S2tLlmPostProcessingEndingPromptCase { 
+    _S2T_LLM_POST_PROCESSING_ENDING_PROMPT_NOT_SET = 0,
+    S2T_LLM_POST_PROCESSING_ENDING_PROMPT = 3,
   }
 
   export enum S2tLlmPostProcessingCasingOptionsCase { 
@@ -2029,116 +2364,6 @@ export namespace S2tLlmPostProcessing {
     _S2T_LLM_POST_PROCESSING_USER_PROMPT_OPTIONS_NOT_SET = 0,
     S2T_LLM_POST_PROCESSING_USER_PROMPT_OPTIONS = 12,
   }
-
-  export enum LlmModelNameCase { 
-    _LLM_MODEL_NAME_NOT_SET = 0,
-    LLM_MODEL_NAME = 13,
-  }
-
-  export enum LlmHeadersCase { 
-    _LLM_HEADERS_NOT_SET = 0,
-    LLM_HEADERS = 14,
-  }
-}
-
-export class S2tLlmPostProcessingCasingOptions extends jspb.Message {
-  getActive(): boolean;
-  setActive(value: boolean): S2tLlmPostProcessingCasingOptions;
-  hasActive(): boolean;
-  clearActive(): S2tLlmPostProcessingCasingOptions;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): S2tLlmPostProcessingCasingOptions.AsObject;
-  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingCasingOptions): S2tLlmPostProcessingCasingOptions.AsObject;
-  static serializeBinaryToWriter(message: S2tLlmPostProcessingCasingOptions, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingCasingOptions;
-  static deserializeBinaryFromReader(message: S2tLlmPostProcessingCasingOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingCasingOptions;
-}
-
-export namespace S2tLlmPostProcessingCasingOptions {
-  export type AsObject = {
-    active?: boolean,
-  }
-
-  export enum ActiveCase { 
-    _ACTIVE_NOT_SET = 0,
-    ACTIVE = 1,
-  }
-}
-
-export class S2tLlmPostProcessingPunctuationOptions extends jspb.Message {
-  getActive(): boolean;
-  setActive(value: boolean): S2tLlmPostProcessingPunctuationOptions;
-  hasActive(): boolean;
-  clearActive(): S2tLlmPostProcessingPunctuationOptions;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): S2tLlmPostProcessingPunctuationOptions.AsObject;
-  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingPunctuationOptions): S2tLlmPostProcessingPunctuationOptions.AsObject;
-  static serializeBinaryToWriter(message: S2tLlmPostProcessingPunctuationOptions, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingPunctuationOptions;
-  static deserializeBinaryFromReader(message: S2tLlmPostProcessingPunctuationOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingPunctuationOptions;
-}
-
-export namespace S2tLlmPostProcessingPunctuationOptions {
-  export type AsObject = {
-    active?: boolean,
-  }
-
-  export enum ActiveCase { 
-    _ACTIVE_NOT_SET = 0,
-    ACTIVE = 1,
-  }
-}
-
-export class S2tLlmPostProcessingSpellCorrectionOptions extends jspb.Message {
-  getActive(): boolean;
-  setActive(value: boolean): S2tLlmPostProcessingSpellCorrectionOptions;
-  hasActive(): boolean;
-  clearActive(): S2tLlmPostProcessingSpellCorrectionOptions;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): S2tLlmPostProcessingSpellCorrectionOptions.AsObject;
-  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingSpellCorrectionOptions): S2tLlmPostProcessingSpellCorrectionOptions.AsObject;
-  static serializeBinaryToWriter(message: S2tLlmPostProcessingSpellCorrectionOptions, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingSpellCorrectionOptions;
-  static deserializeBinaryFromReader(message: S2tLlmPostProcessingSpellCorrectionOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingSpellCorrectionOptions;
-}
-
-export namespace S2tLlmPostProcessingSpellCorrectionOptions {
-  export type AsObject = {
-    active?: boolean,
-  }
-
-  export enum ActiveCase { 
-    _ACTIVE_NOT_SET = 0,
-    ACTIVE = 1,
-  }
-}
-
-export class S2tLlmPostProcessingSemanticCorrectionOptions extends jspb.Message {
-  getActive(): boolean;
-  setActive(value: boolean): S2tLlmPostProcessingSemanticCorrectionOptions;
-  hasActive(): boolean;
-  clearActive(): S2tLlmPostProcessingSemanticCorrectionOptions;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): S2tLlmPostProcessingSemanticCorrectionOptions.AsObject;
-  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingSemanticCorrectionOptions): S2tLlmPostProcessingSemanticCorrectionOptions.AsObject;
-  static serializeBinaryToWriter(message: S2tLlmPostProcessingSemanticCorrectionOptions, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingSemanticCorrectionOptions;
-  static deserializeBinaryFromReader(message: S2tLlmPostProcessingSemanticCorrectionOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingSemanticCorrectionOptions;
-}
-
-export namespace S2tLlmPostProcessingSemanticCorrectionOptions {
-  export type AsObject = {
-    active?: boolean,
-  }
-
-  export enum ActiveCase { 
-    _ACTIVE_NOT_SET = 0,
-    ACTIVE = 1,
-  }
 }
 
 export class S2tLlmPostProcessingTranslationOptions extends jspb.Message {
@@ -2183,33 +2408,33 @@ export class S2tLlmPostProcessingInverseNormalizationOptions extends jspb.Messag
   hasActive(): boolean;
   clearActive(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getEmail(): boolean;
-  setEmail(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getEmail(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setEmail(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasEmail(): boolean;
   clearEmail(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getPhoneNumber(): boolean;
-  setPhoneNumber(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getPhoneNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setPhoneNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasPhoneNumber(): boolean;
   clearPhoneNumber(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getDateAndTime(): boolean;
-  setDateAndTime(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getDateAndTime(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setDateAndTime(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasDateAndTime(): boolean;
   clearDateAndTime(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getCreditCardNumber(): boolean;
-  setCreditCardNumber(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getCreditCardNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setCreditCardNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasCreditCardNumber(): boolean;
   clearCreditCardNumber(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getSocialSecurityNumber(): boolean;
-  setSocialSecurityNumber(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getSocialSecurityNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setSocialSecurityNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasSocialSecurityNumber(): boolean;
   clearSocialSecurityNumber(): S2tLlmPostProcessingInverseNormalizationOptions;
 
-  getTimeZone(): boolean;
-  setTimeZone(value: boolean): S2tLlmPostProcessingInverseNormalizationOptions;
+  getTimeZone(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setTimeZone(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingInverseNormalizationOptions;
   hasTimeZone(): boolean;
   clearTimeZone(): S2tLlmPostProcessingInverseNormalizationOptions;
 
@@ -2224,12 +2449,12 @@ export class S2tLlmPostProcessingInverseNormalizationOptions extends jspb.Messag
 export namespace S2tLlmPostProcessingInverseNormalizationOptions {
   export type AsObject = {
     active?: boolean,
-    email?: boolean,
-    phoneNumber?: boolean,
-    dateAndTime?: boolean,
-    creditCardNumber?: boolean,
-    socialSecurityNumber?: boolean,
-    timeZone?: boolean,
+    email?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    phoneNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    dateAndTime?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    creditCardNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    socialSecurityNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    timeZone?: S2tLlmPostProcessingSubTaskOptions.AsObject,
   }
 
   export enum ActiveCase { 
@@ -2274,33 +2499,33 @@ export class S2tLlmPostProcessingNormalizationOptions extends jspb.Message {
   hasActive(): boolean;
   clearActive(): S2tLlmPostProcessingNormalizationOptions;
 
-  getEmail(): boolean;
-  setEmail(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getEmail(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setEmail(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasEmail(): boolean;
   clearEmail(): S2tLlmPostProcessingNormalizationOptions;
 
-  getPhoneNumber(): boolean;
-  setPhoneNumber(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getPhoneNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setPhoneNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasPhoneNumber(): boolean;
   clearPhoneNumber(): S2tLlmPostProcessingNormalizationOptions;
 
-  getDateAndTime(): boolean;
-  setDateAndTime(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getDateAndTime(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setDateAndTime(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasDateAndTime(): boolean;
   clearDateAndTime(): S2tLlmPostProcessingNormalizationOptions;
 
-  getCreditCardNumber(): boolean;
-  setCreditCardNumber(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getCreditCardNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setCreditCardNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasCreditCardNumber(): boolean;
   clearCreditCardNumber(): S2tLlmPostProcessingNormalizationOptions;
 
-  getSocialSecurityNumber(): boolean;
-  setSocialSecurityNumber(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getSocialSecurityNumber(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setSocialSecurityNumber(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasSocialSecurityNumber(): boolean;
   clearSocialSecurityNumber(): S2tLlmPostProcessingNormalizationOptions;
 
-  getTimeZone(): boolean;
-  setTimeZone(value: boolean): S2tLlmPostProcessingNormalizationOptions;
+  getTimeZone(): S2tLlmPostProcessingSubTaskOptions | undefined;
+  setTimeZone(value?: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingNormalizationOptions;
   hasTimeZone(): boolean;
   clearTimeZone(): S2tLlmPostProcessingNormalizationOptions;
 
@@ -2315,12 +2540,12 @@ export class S2tLlmPostProcessingNormalizationOptions extends jspb.Message {
 export namespace S2tLlmPostProcessingNormalizationOptions {
   export type AsObject = {
     active?: boolean,
-    email?: boolean,
-    phoneNumber?: boolean,
-    dateAndTime?: boolean,
-    creditCardNumber?: boolean,
-    socialSecurityNumber?: boolean,
-    timeZone?: boolean,
+    email?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    phoneNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    dateAndTime?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    creditCardNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    socialSecurityNumber?: S2tLlmPostProcessingSubTaskOptions.AsObject,
+    timeZone?: S2tLlmPostProcessingSubTaskOptions.AsObject,
   }
 
   export enum ActiveCase { 
@@ -2406,26 +2631,26 @@ export namespace S2tLlmPostProcessingSummarizationOptions {
   }
 }
 
-export class S2tLlmPostProcessingUserPromptOptions extends jspb.Message {
+export class S2tLlmPostProcessingSubTaskOptions extends jspb.Message {
   getActive(): boolean;
-  setActive(value: boolean): S2tLlmPostProcessingUserPromptOptions;
+  setActive(value: boolean): S2tLlmPostProcessingSubTaskOptions;
   hasActive(): boolean;
-  clearActive(): S2tLlmPostProcessingUserPromptOptions;
+  clearActive(): S2tLlmPostProcessingSubTaskOptions;
 
   getPrompt(): string;
-  setPrompt(value: string): S2tLlmPostProcessingUserPromptOptions;
+  setPrompt(value: string): S2tLlmPostProcessingSubTaskOptions;
   hasPrompt(): boolean;
-  clearPrompt(): S2tLlmPostProcessingUserPromptOptions;
+  clearPrompt(): S2tLlmPostProcessingSubTaskOptions;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): S2tLlmPostProcessingUserPromptOptions.AsObject;
-  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingUserPromptOptions): S2tLlmPostProcessingUserPromptOptions.AsObject;
-  static serializeBinaryToWriter(message: S2tLlmPostProcessingUserPromptOptions, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingUserPromptOptions;
-  static deserializeBinaryFromReader(message: S2tLlmPostProcessingUserPromptOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingUserPromptOptions;
+  toObject(includeInstance?: boolean): S2tLlmPostProcessingSubTaskOptions.AsObject;
+  static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingSubTaskOptions): S2tLlmPostProcessingSubTaskOptions.AsObject;
+  static serializeBinaryToWriter(message: S2tLlmPostProcessingSubTaskOptions, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): S2tLlmPostProcessingSubTaskOptions;
+  static deserializeBinaryFromReader(message: S2tLlmPostProcessingSubTaskOptions, reader: jspb.BinaryReader): S2tLlmPostProcessingSubTaskOptions;
 }
 
-export namespace S2tLlmPostProcessingUserPromptOptions {
+export namespace S2tLlmPostProcessingSubTaskOptions {
   export type AsObject = {
     active?: boolean,
     prompt?: string,
@@ -2662,4 +2887,25 @@ export enum InferenceBackend {
   INFERENCE_BACKEND_CLOUD_SERVICE_DEEPGRAM = 4,
   INFERENCE_BACKEND_CLOUD_SERVICE_GOOGLE = 5,
   INFERENCE_BACKEND_CLOUD_SERVICE_MICROSOFT = 6,
+}
+export enum ServiceTier { 
+  SERVICE_TIER_UNSPECIFIED = 0,
+  SERVICE_TIER_AUTO = 1,
+  SERVICE_TIER_DEFAULT = 2,
+  SERVICE_TIER_FLEX = 3,
+  SERVICE_TIER_SCALE = 4,
+  SERVICE_TIER_PRIORITY = 5,
+}
+export enum Verbosity { 
+  VERBOSITY_UNSPECIFIED = 0,
+  VERBOSITY_LOW = 1,
+  VERBOSITY_MEDIUM = 2,
+  VERBOSITY_HIGH = 3,
+}
+export enum ReasoningEffort { 
+  REASONING_EFFORT_UNSPECIFIED = 0,
+  REASONING_EFFORT_MINIMAL = 1,
+  REASONING_EFFORT_LOW = 2,
+  REASONING_EFFORT_MEDIUM = 3,
+  REASONING_EFFORT_HIGH = 4,
 }
