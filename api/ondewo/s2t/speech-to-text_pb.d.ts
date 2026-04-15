@@ -2377,6 +2377,11 @@ export class S2tLlmPostProcessingTranslationOptions extends jspb.Message {
   hasLanguage(): boolean;
   clearLanguage(): S2tLlmPostProcessingTranslationOptions;
 
+  getPrompt(): string;
+  setPrompt(value: string): S2tLlmPostProcessingTranslationOptions;
+  hasPrompt(): boolean;
+  clearPrompt(): S2tLlmPostProcessingTranslationOptions;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): S2tLlmPostProcessingTranslationOptions.AsObject;
   static toObject(includeInstance: boolean, msg: S2tLlmPostProcessingTranslationOptions): S2tLlmPostProcessingTranslationOptions.AsObject;
@@ -2389,6 +2394,7 @@ export namespace S2tLlmPostProcessingTranslationOptions {
   export type AsObject = {
     active?: boolean,
     language?: string,
+    prompt?: string,
   }
 
   export enum ActiveCase { 
@@ -2399,6 +2405,11 @@ export namespace S2tLlmPostProcessingTranslationOptions {
   export enum LanguageCase { 
     _LANGUAGE_NOT_SET = 0,
     LANGUAGE = 2,
+  }
+
+  export enum PromptCase { 
+    _PROMPT_NOT_SET = 0,
+    PROMPT = 3,
   }
 }
 
@@ -2590,6 +2601,11 @@ export class S2tLlmPostProcessingSummarizationOptions extends jspb.Message {
   hasActive(): boolean;
   clearActive(): S2tLlmPostProcessingSummarizationOptions;
 
+  getPrompt(): string;
+  setPrompt(value: string): S2tLlmPostProcessingSummarizationOptions;
+  hasPrompt(): boolean;
+  clearPrompt(): S2tLlmPostProcessingSummarizationOptions;
+
   getMinChars(): number;
   setMinChars(value: number): S2tLlmPostProcessingSummarizationOptions;
   hasMinChars(): boolean;
@@ -2611,6 +2627,7 @@ export class S2tLlmPostProcessingSummarizationOptions extends jspb.Message {
 export namespace S2tLlmPostProcessingSummarizationOptions {
   export type AsObject = {
     active?: boolean,
+    prompt?: string,
     minChars?: number,
     maxChars?: number,
   }
@@ -2620,14 +2637,19 @@ export namespace S2tLlmPostProcessingSummarizationOptions {
     ACTIVE = 1,
   }
 
+  export enum PromptCase { 
+    _PROMPT_NOT_SET = 0,
+    PROMPT = 2,
+  }
+
   export enum MinCharsCase { 
     _MIN_CHARS_NOT_SET = 0,
-    MIN_CHARS = 2,
+    MIN_CHARS = 3,
   }
 
   export enum MaxCharsCase { 
     _MAX_CHARS_NOT_SET = 0,
-    MAX_CHARS = 3,
+    MAX_CHARS = 4,
   }
 }
 
