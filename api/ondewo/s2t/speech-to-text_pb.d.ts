@@ -1156,6 +1156,11 @@ export class AcousticModels extends jspb.Message {
   hasS2tCloudServiceMicrosoft(): boolean;
   clearS2tCloudServiceMicrosoft(): AcousticModels;
 
+  getParakeet(): Parakeet | undefined;
+  setParakeet(value?: Parakeet): AcousticModels;
+  hasParakeet(): boolean;
+  clearParakeet(): AcousticModels;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AcousticModels.AsObject;
   static toObject(includeInstance: boolean, msg: AcousticModels): AcousticModels.AsObject;
@@ -1175,6 +1180,7 @@ export namespace AcousticModels {
     s2tCloudServiceDeepgram?: S2tCloudServiceDeepgram.AsObject,
     s2tCloudServiceGoogle?: S2tCloudServiceGoogle.AsObject,
     s2tCloudServiceMicrosoft?: S2tCloudServiceMicrosoft.AsObject,
+    parakeet?: Parakeet.AsObject,
   }
 }
 
@@ -1462,6 +1468,40 @@ export namespace Wav2VecTriton {
   }
 }
 
+export class Parakeet extends jspb.Message {
+  getTritonModelName(): string;
+  setTritonModelName(value: string): Parakeet;
+
+  getTritonModelVersion(): string;
+  setTritonModelVersion(value: string): Parakeet;
+
+  getCheckStatusTimeout(): number;
+  setCheckStatusTimeout(value: number): Parakeet;
+
+  getTritonServerHost(): string;
+  setTritonServerHost(value: string): Parakeet;
+
+  getTritonServerPort(): number;
+  setTritonServerPort(value: number): Parakeet;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Parakeet.AsObject;
+  static toObject(includeInstance: boolean, msg: Parakeet): Parakeet.AsObject;
+  static serializeBinaryToWriter(message: Parakeet, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Parakeet;
+  static deserializeBinaryFromReader(message: Parakeet, reader: jspb.BinaryReader): Parakeet;
+}
+
+export namespace Parakeet {
+  export type AsObject = {
+    tritonModelName: string,
+    tritonModelVersion: string,
+    checkStatusTimeout: number,
+    tritonServerHost: string,
+    tritonServerPort: number,
+  }
+}
+
 export class PtFiles extends jspb.Message {
   getPath(): string;
   setPath(value: string): PtFiles;
@@ -1733,8 +1773,6 @@ export class OpenaiLlmOptions extends jspb.Message {
 
   getModel(): string;
   setModel(value: string): OpenaiLlmOptions;
-  hasModel(): boolean;
-  clearModel(): OpenaiLlmOptions;
 
   getFrequencyPenalty(): number;
   setFrequencyPenalty(value: number): OpenaiLlmOptions;
@@ -1865,7 +1903,7 @@ export namespace OpenaiLlmOptions {
     defaultHeadersMap: Array<[string, string]>,
     defaultQuery?: google_protobuf_struct_pb.Struct.AsObject,
     strictResponseValidation?: boolean,
-    model?: string,
+    model: string,
     frequencyPenalty?: number,
     logitBiasMap: Array<[string, number]>,
     logprobs?: boolean,
@@ -1938,11 +1976,6 @@ export namespace OpenaiLlmOptions {
   export enum StrictResponseValidationCase { 
     _STRICT_RESPONSE_VALIDATION_NOT_SET = 0,
     STRICT_RESPONSE_VALIDATION = 11,
-  }
-
-  export enum ModelCase { 
-    _MODEL_NOT_SET = 0,
-    MODEL = 12,
   }
 
   export enum FrequencyPenaltyCase { 
