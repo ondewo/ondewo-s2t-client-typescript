@@ -69,7 +69,7 @@ export async function listPipelineIds(
 	request.setLanguagesList(languages);
 	request.setRegisteredOnly(true);
 
-	const metadata: grpcWeb.Metadata = { authorization: authorizationHeader };
+	const metadata: grpcWeb.Metadata = { Authorization: authorizationHeader };
 	const response: ListS2tPipelinesResponse = await client.listS2tPipelines(request, metadata);
 
 	return response.getPipelineConfigsList().map((config: Speech2TextConfig): string => config.getId());

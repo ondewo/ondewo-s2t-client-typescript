@@ -96,7 +96,7 @@ runTestCase(
 		assert.equal(calls[0].request.getRegisteredOnly(), true);
 
 		// The bearer token was forwarded as the `authorization` gRPC metadata header.
-		assert.deepEqual(calls[0].metadata, { authorization: authorizationHeader });
+		assert.deepEqual(calls[0].metadata, { Authorization: authorizationHeader });
 	}
 );
 
