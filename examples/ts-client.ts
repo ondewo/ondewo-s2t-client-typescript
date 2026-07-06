@@ -26,6 +26,9 @@
  * @packageDocumentation
  */
 
+import * as path from 'node:path';
+
+import * as dotenv from 'dotenv';
 import type * as grpcWeb from 'grpc-web';
 
 import { Speech2TextPromiseClient } from '../api/ondewo/s2t/speech-to-text_grpc_web_pb';
@@ -76,25 +79,70 @@ export async function listPipelineIds(
 }
 
 /**
- * Wire the example up against a live S2T server: log in, build the client, list pipelines, print the ids.
- * Endpoint + credentials are read from the environment. Not executed during unit tests.
+ * Log a failed gRPC call with its status code + details when the error is a grpc-web {@link grpcWeb.RpcError},
+ * falling back to a generic message otherwise. Never logs credentials or tokens.
+ *
+ * @param error - The value thrown by the `listS2tPipelines` RPC.
+ */
+function logRpcError(error: unknown): void {
+	const rpcError: Partial<grpcWeb.RpcError> = error as Partial<grpcWeb.RpcError>;
+	if (typeof rpcError.code === 'number') {
+		console.error(`[ts-client] gRPC listS2tPipelines failed (code=${rpcError.code}): ${rpcError.message ?? ''}`);
+	} else {
+		console.error('[ts-client] Failed to list S2T pipelines:', error);
+	}
+}
+
+/**
+ * Wire the example up against a live S2T server: load config from `examples/environment.env`, log in via
+ * Keycloak, build the client, list pipelines, print the ids. All endpoint + credential values are read from
+ * the canonical environment variables (see `examples/environment.env`). Not executed during unit tests.
  *
  * @returns A promise that resolves once the ids have been printed and the token refresh loop is stopped.
  */
 async function main(): Promise<void> {
-	const provider: OfflineTokenProvider = await login({
-		keycloakUrl: process.env.ONDEWO_S2T_KEYCLOAK_URL ?? 'https://auth.ondewo.com/auth',
-		realm: process.env.ONDEWO_S2T_KEYCLOAK_REALM ?? 'ondewo-ccai-platform',
-		clientId: process.env.ONDEWO_S2T_KEYCLOAK_CLIENT_ID ?? 'ondewo-nlu-cai-sdk-public',
-		username: process.env.ONDEWO_S2T_USER_NAME ?? '',
-		password: process.env.ONDEWO_S2T_PASSWORD ?? ''
-	});
+	dotenv.config({ path: path.join(__dirname, 'environment.env') });
 
-	const endpoint: string = process.env.ONDEWO_S2T_GRPC_ENDPOINT ?? 'http://localhost:8080';
+	const keycloakUrl: string = process.env.KEYCLOAK_URL ?? 'https://auth.ondewo.com/auth';
+	const keycloakRealm: string = process.env.KEYCLOAK_REALM ?? 'ondewo-ccai-platform';
+	const keycloakClientId: string = process.env.KEYCLOAK_CLIENT_ID ?? 'ondewo-nlu-cai-sdk-public';
+	const keycloakUserName: string = process.env.KEYCLOAK_USER_NAME ?? '';
+	const keycloakPassword: string = process.env.KEYCLOAK_PASSWORD ?? '';
+	const keycloakVerifySsl: boolean = (process.env.KEYCLOAK_VERIFY_SSL ?? 'true').toLowerCase() !== 'false';
+
+	const host: string = process.env.ONDEWO_HOST ?? 'localhost';
+	const port: string = process.env.ONDEWO_PORT ?? '8080';
+	const useSecureChannel: boolean = (process.env.ONDEWO_USE_SECURE_CHANNEL ?? 'false').toLowerCase() === 'true';
+	let scheme: string = 'http';
+	if (useSecureChannel) {
+		scheme = 'https';
+	}
+	const endpoint: string = `${scheme}://${host}:${port}`;
+
+	const languages: string[] = (process.env.ONDEWO_S2T_LANGUAGES ?? 'en-US')
+		.split(',')
+		.map((language: string): string => language.trim())
+		.filter((language: string): boolean => language.length > 0);
+
+	console.log(`[ts-client] START: logging in to Keycloak realm "${keycloakRealm}" at ${keycloakUrl}`);
+	const provider: OfflineTokenProvider = await login({
+		keycloakUrl,
+		realm: keycloakRealm,
+		clientId: keycloakClientId,
+		username: keycloakUserName,
+		password: keycloakPassword,
+		keycloakVerifySsl
+	});
+	console.log('[ts-client] Keycloak login succeeded; obtained a bearer access token');
+
 	const client: Speech2TextPromiseClient = new Speech2TextPromiseClient(endpoint);
 	try {
-		const pipelineIds: string[] = await listPipelineIds(client, provider.getAuthorizationHeader(), ['en-US']);
-		console.log('S2T pipeline ids:', pipelineIds);
+		console.log(`[ts-client] Listing S2T pipelines for languages [${languages.join(', ')}] via ${endpoint}`);
+		const pipelineIds: string[] = await listPipelineIds(client, provider.getAuthorizationHeader(), languages);
+		console.log(`[ts-client] DONE: received ${pipelineIds.length} S2T pipeline id(s):`, pipelineIds);
+	} catch (error: unknown) {
+		logRpcError(error);
+		throw error;
 	} finally {
 		provider.stop();
 	}
@@ -102,7 +150,7 @@ async function main(): Promise<void> {
 
 if (require.main === module) {
 	void main().catch((error: unknown): void => {
-		console.error(error);
-		process.exitCode = 1;
+		console.error('[ts-client] Example failed:', error);
+		process.exit(1);
 	});
 }
