@@ -1,0 +1,38 @@
+# Auto-fix the mechanical rules (blank-line spacing, list indentation, emphasis
+# style, ...) the same way ruff-format does for Python.
+fix: true
+config:
+  # MD013 line-length: docs contain long lines / tables.
+  MD013: false
+  # MD033 no-inline-html: docs embed <p>/<code> HTML tags.
+  MD033: false
+  # MD024 duplicate-heading: RELEASE.md changelogs repeat "### Improvements" and
+  # even duplicate whole "## Release ... X.Y.Z" entries in the flat history list.
+  MD024: false
+  # MD025 single-h1: RELEASE.md changelogs use one H1 per release section.
+  MD025: false
+  # MD035 hr-style: changelog separators use inconsistent "*" run lengths.
+  MD035: false
+  # MD053 link-reference-definitions: the READMEs use "[comment]: <> '...'"
+  # link-ref-style comments as START/END OF GITHUB README delimiters that the
+  # release Makefile (perl range on src/README.md) slices on — do NOT remove them.
+  MD053: false
+  # MD040 fenced-code-language: README embeds plain directory-tree / output blocks.
+  MD040: false
+  # MD041 first-line-heading: README opens with the HTML branding/logo header.
+  MD041: false
+  # MD045 image-alt-text: the branding header uses <img> logos / social icons.
+  MD045: false
+globs:
+  - "*.md"
+ignores:
+  - "node_modules/**"
+  - "api/**"
+  - "src/ondewo-s2t-api/**"
+  - "ondewo-proto-compiler/**"
+  - "lib/**"
+  - "dist/**"
+  - "build/**"
+  - "coverage/**"
+  - ".test-build/**"
+  - ".venv/**"
