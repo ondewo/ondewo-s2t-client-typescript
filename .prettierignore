@@ -6,6 +6,15 @@ fesm2022/
 node_modules
 npm
 RELEASE.md
+# Release-critical markdown: prettier rewrites `[comment]: <> (START OF GITHUB README)` into
+# `[comment]: <> 'START OF GITHUB README'`. The Makefile slices the published README between those
+# markers, so they are left exactly as-is (same reason RELEASE.md is ignored).
+README.md
+# Markdown style is owned by markdownlint-cli2, not prettier (same reason as RELEASE.md/README.md)
+CLAUDE.md
+# Owned by their own tools; prettier's -w reflow of the giticket `args:` array is release-critical churn
+.pre-commit-config.yaml
+.markdownlint-cli2.yaml
 src/
 
 ondewo-proto-compiler
@@ -13,6 +22,11 @@ ondewo-proto-compiler
 ondewo-s2t-api
 package-lock.json
 package.json
+.ci-package.json
 npm/
 .test-build/
 .test-build-examples/
+
+# c8 coverage output (gitignored, but the pre-commit hook's `prettier -w` would otherwise rewrite it)
+coverage/
+.nyc_output/
