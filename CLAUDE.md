@@ -110,7 +110,7 @@ The hand-written surface is exactly `auth/**` + `examples/**`. Everything in the
 
 ```shell
 npm install --no-audit --no-fund   # exactly what CI runs
-npm test                           # the entire CI gate
+npm test                           # the heart of the CI gate
 ```
 
 - `pretest` = `rm -rf .test-build && tsc -p tsconfig.test.json && cp -R api .test-build/api`.
