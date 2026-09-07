@@ -52,13 +52,18 @@ npm
 │   ├── google
 │   │   └── protobuf
 │   │       ├── empty_pb.d.ts
-│   │       └── empty_pb.js
+│   │       ├── empty_pb.js
+│   │       ├── struct_pb.d.ts
+│   │       └── struct_pb.js
 │   └── ondewo
 │       └── s2t
 │           ├── speech-to-text_grpc_web_pb.d.ts
 │           ├── speech-to-text_grpc_web_pb.js
 │           ├── speech-to-text_pb.d.ts
 │           └── speech-to-text_pb.js
+├── auth
+│   ├── offlineTokenProvider.d.ts
+│   └── offlineTokenProvider.js
 ├── LICENSE
 ├── package.json
 ├── public-api.d.ts
@@ -66,7 +71,60 @@ npm
 └── README.md
 ```
 
+`api/` and `public-api.*` are generated from `ondewo/s2t/speech-to-text.proto` by the
+[ONDEWO PROTO COMPILER](https://github.com/ondewo/ondewo-proto-compiler); `auth/` is hand-written and compiled into
+the package by `make create_npm_package`.
+
+## Authentication
+
+The service expects a Keycloak bearer token in the `authorization` gRPC metadata header. `auth/offlineTokenProvider`
+performs the headless (2FA-exempt) ROPC + `offline_access` login against the public SDK client and keeps the
+short-lived access token fresh in the background until `tokenExpirationInS` elapses:
+
+```typescript
+import { login, OfflineTokenProvider } from '@ondewo/s2t-client-typescript/auth/offlineTokenProvider';
+import { Speech2TextPromiseClient } from '@ondewo/s2t-client-typescript/api/ondewo/s2t/speech-to-text_grpc_web_pb';
+import { ListS2tPipelinesRequest } from '@ondewo/s2t-client-typescript/api/ondewo/s2t/speech-to-text_pb';
+
+const provider: OfflineTokenProvider = await login({
+  keycloakUrl: 'https://auth.ondewo.com/auth',
+  realm: 'ondewo-ccai-platform',
+  clientId: 'ondewo-nlu-cai-sdk-public',
+  username: process.env.KEYCLOAK_USER_NAME ?? '',
+  password: process.env.KEYCLOAK_PASSWORD ?? ''
+  // keycloakVerifySsl: false  // ONLY for a self-signed local Envoy; Node-only, ignored in a browser
+});
+
+const client = new Speech2TextPromiseClient('http://localhost:8080');
+const request = new ListS2tPipelinesRequest();
+request.setLanguagesList(['en-US']);
+const response = await client.listS2tPipelines(request, { Authorization: provider.getAuthorizationHeader() });
+
+provider.stop(); // stops the background refresh loop so the process can exit
+```
+
+A runnable version of exactly this flow, configured from `examples/environment.env`, lives in
+`examples/ts-client.ts`.
+
 [comment]: <> (START OF GITHUB README)
+
+## Development
+
+```shell
+npm install --no-audit --no-fund   ## exactly what CI runs
+npm test                           ## compiles auth/ + examples/ and enforces the coverage gate
+npm run test:drift                 ## package.json and .ci-package.json must agree
+make eslint                        ## also run by .husky/pre-commit
+make prettier PRETTIER_WRITE=-w    ## also run by .husky/pre-commit
+```
+
+`npm test` is the whole CI gate. `tsconfig.test.json` compiles **every** `.ts` file under `auth/` and `examples/`
+into `.test-build/`, and `.c8rc.json` demands 100% lines/branches/functions/statements **per file** on all of it —
+so a new hand-written file without tests fails the build on its own, with no config change. The generated `api/`
+stubs are copied into `.test-build/api` for the runtime and excluded from the measurement.
+
+`.husky/pre-push` runs `npm test` before anything leaves the machine; `.husky/pre-commit` deliberately does not
+(`make release` invokes it directly, and the suite must not run mid-release).
 
 ## Build
 
