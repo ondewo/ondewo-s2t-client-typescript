@@ -31,3 +31,14 @@ jobs:
       - name: Unit tests + 100% coverage gate on hand-written code
         run: npm test
 
+      # The release regenerates the root package.json (the codegen's output volume is the repo root) and
+      # `make restore_ci_test_setup` merges .ci-package.json back in. This fails if the two drift apart.
+      - name: package.json <-> .ci-package.json mirror
+        run: npm run test:drift
+
+      # Packaging gate: fails if the published tarball would ship test artifacts or is missing
+      # public-api.* / the compiled auth helper.
+      - name: Build and verify the npm package contents
+        run: |
+          make create_npm_package
+          make verify_npm_package_contents
