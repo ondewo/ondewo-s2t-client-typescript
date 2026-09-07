@@ -96,13 +96,13 @@ clarifying questions come before implementation rather than after mistakes.
 `@ondewo/s2t-client-typescript` -- the gRPC-web TypeScript SDK for the ONDEWO S2T API. Roughly 95% of the
 tree is **generated** and must never be hand-edited:
 
-| Path | Origin | Editable? |
-| --- | --- | --- |
-| `api/**`, `public-api.js`, `public-api.d.ts` | proto-compiler codegen (`make build`) | no |
-| `src/ondewo-s2t-api/`, `ondewo-proto-compiler/` | git submodules (codegen inputs) | pin only |
-| `auth/offlineTokenProvider.ts` (+ `.spec.ts`) | hand-written | yes |
-| `examples/ts-client.ts` (+ `.spec.ts`), `examples/environment.env` | hand-written | yes |
-| root `README.md`, `RELEASE.md` | **copies** of `src/README.md` / `src/RELEASE.md`, overwritten by `make build` | edit `src/` too |
+| Path                                                               | Origin                                                                        | Editable?       |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------------------- | --------------- |
+| `api/**`, `public-api.js`, `public-api.d.ts`                       | proto-compiler codegen (`make build`)                                         | no              |
+| `src/ondewo-s2t-api/`, `ondewo-proto-compiler/`                    | git submodules (codegen inputs)                                               | pin only        |
+| `auth/offlineTokenProvider.ts` (+ `.spec.ts`)                      | hand-written                                                                  | yes             |
+| `examples/ts-client.ts` (+ `.spec.ts`), `examples/environment.env` | hand-written                                                                  | yes             |
+| root `README.md`, `RELEASE.md`                                     | **copies** of `src/README.md` / `src/RELEASE.md`, overwritten by `make build` | edit `src/` too |
 
 The hand-written surface is exactly `auth/**` + `examples/**`. Everything in the sections below is about those.
 
@@ -168,14 +168,17 @@ perl -i -pe 's|^ONDEWO_PROTO_COMPILER_GIT_BRANCH=.*|ONDEWO_PROTO_COMPILER_GIT_BR
 git submodule status | grep proto-compiler          # must print the new tag
 ```
 
-- Currently pinned to **5.14.0** (`b71f8ed4575ecc4ee8084389a075514acac61ff4`), Makefile line 20 `tags/5.14.0`.
-- **Keep the Makefile variable and the gitlink on the same tag.** They had drifted (`tags/5.10.0` vs a 5.11.0
-  gitlink), and `make check_out_correct_submodule_versions` checks out the **Makefile** value, so every build
-  silently downgraded the submodule.
+- Currently pinned to **5.14.0** (`b71f8ed4575ecc4ee8084389a075514acac61ff4`), Makefile line 19 `tags/5.14.0`.
+- **Keep the Makefile variable and the gitlink on the same tag.** `make check_out_correct_submodule_versions`
+  checks out the **Makefile** value into the submodule and `make release` then `git add`s it, so a Makefile pin
+  older than the gitlink silently rewrites the gitlink backwards. That is not hypothetical here: `d4da575`
+  ("Update proto compiler dependency to version 5.13.0") moved the gitlink to `205429a` (5.13.0) while the
+  Makefile still said `tags/5.10.0`, and the next release commit `23f4ed9` ("Preparing for Release 7.4.1") put the
+  gitlink back to `afce16f` (5.10.0). Bumping only one of the two is how the repo lost 5.12.0 and 5.13.0.
 - A pin move changes which image `make build` would build; it rewrites **no** committed stub. Never write
-  "regenerated with proto-compiler X" in `RELEASE.md` unless `make build` actually ran. The 5.12.0–5.14.0 payload
+  "regenerated with proto-compiler X" in `RELEASE.md` unless `make build` actually ran. The 5.11.0–5.14.0 payload
   (Angular/JS/Node/TS codegen fixes, incl. proto3 explicit presence for `optional` scalars) reaches this repo only
-  through a regeneration.
+  through a regeneration — the committed `api/**` stubs still come from the 5.10.0 generator.
 - Two things the upstream `update_proto_compiler_dependency.sh` also touches are **no-ops here** and must not appear
   as diffs: `Dockerfile.utils` already has `ENV NODE_VERSION=24.14.0` (what 5.14.0 declares), and the jq dependency
   sync of `src/package.json` against `typescript/image-data/package.json@5.14.0` changes nothing (the only
@@ -186,22 +189,29 @@ git submodule status | grep proto-compiler          # must print the new tag
 `.pre-commit-config.yaml` runs the language-agnostic set only (markdownlint-cli2, pre-commit-hooks hygiene,
 conventional-pre-commit, giticket); eslint/prettier stay with husky.
 
-- **conventional-pre-commit MUST be declared BEFORE giticket.** Both are `commit-msg`-stage hooks and pre-commit runs
-  repos in declaration order. giticket rewrites the subject to `[OND231-624] chore: probe`, which is no longer valid
-  Conventional Commits — with giticket first, every commit on a ticket branch failed and could only be made with
-  `--no-verify`. Verified both directions: in the current order a `chore: probe` on `feature/OND231-624-probe` passes
-  and lands as `[OND231-624] chore: probe`; feeding the decorated subject to `conventional-pre-commit` v4.4.0 exits 1.
+- **conventional-pre-commit MUST be declared BEFORE giticket** (fixed on master in `2881d7f`; the block carries a
+  comment saying so — do not reorder it back). Both are `commit-msg`-stage hooks and pre-commit runs repos in
+  declaration order. giticket rewrites the subject to `[OND231-624] chore: probe`, which is no longer valid
+  Conventional Commits, so with giticket first every commit on a ticket branch failed and could only be made with
+  `--no-verify`. Re-verified both directions against the current config with
+  `pre-commit run conventional-pre-commit --hook-stage commit-msg`: it passes on `chore: probe` and exits 1 on the
+  decorated `[OND231-624] chore: probe`.
 - **markdownlint MD053 must stay disabled** in `.markdownlint-cli2.yaml`. Its auto-fix DELETES the
   `[comment]: <> (START/END OF GITHUB README)` reference-definition markers that `make build` slices the published
   README on (`perl … /START OF GITHUB README/../END OF GITHUB README/`, currently lines 109–194 of `src/README.md`).
-- `.husky/pre-commit` must keep skipping `pre-commit run` when `.pre-commit-config.yaml` is unstaged: `make
-  run_precommit_hooks` invokes `.husky/pre-commit` **directly** during the release, the codegen leaves the config
-  unstaged, and `pre-commit run` would abort with **"Your pre-commit configuration is unstaged"**.
+- `.husky/pre-commit` must keep skipping `pre-commit run` when `.pre-commit-config.yaml` is unstaged.
+  `make run_precommit_hooks` invokes `.husky/pre-commit` **directly** during the release, the codegen leaves the
+  config unstaged, and `pre-commit run` would abort with **"Your pre-commit configuration is unstaged"**.
 - `.husky/pre-commit` runs `make prettier PRETTIER_WRITE=-w` **before** `pre-commit run`, so anything prettier
-  rewrites is left unstaged and deadlocks that chained run. `.prettierignore` therefore owns the exclusions:
-  `README.md` + `RELEASE.md` (slice markers — prettier turns `<> (...)` into `<> '...'`), `CLAUDE.md` (markdown is
-  markdownlint's), `.pre-commit-config.yaml` / `.markdownlint-cli2.yaml` / `.ci-package.json` (their own tools), and
-  `coverage/` + `.nyc_output/`. `prettier --check ./` is currently clean — keep it that way.
+  rewrites is left unstaged and deadlocks that chained run. Master's answer (`3141936`) is to keep the tracked files
+  prettier-clean rather than to ignore them, so **run `make prettier` before committing**. `.prettierignore` covers
+  only what prettier must not touch: `README.md` + `RELEASE.md` (prettier turns the `[comment]: <> (...)` slice
+  markers into `<> '...'`), `package.json` / `package-lock.json` / the generated trees, and `coverage/` +
+  `.nyc_output/` (c8 output the `-w` pass would otherwise rewrite). `CLAUDE.md`, `.ci-package.json`,
+  `.pre-commit-config.yaml` and `.markdownlint-cli2.yaml` are **not** ignored — prettier and markdownlint-cli2 do
+  not fight over them (verified: `prettier --check ./` and `uvx pre-commit run --all-files` are both clean on the
+  same tree). Never wrap an inline `` `code` `` span across a line break in markdown; prettier dedents the
+  continuation line and mangles it.
 - Run it as `uvx pre-commit run --all-files` (pre-commit is not on `PATH` on this machine). Note that
   `.husky/pre-commit` guards with `command -v pre-commit`, so on such a machine the framework hooks silently do not
   run on a normal `git commit`.
@@ -223,6 +233,14 @@ conventional-pre-commit, giticket); eslint/prettier stay with husky.
   `Cannot find module`.
 - **`make verify_npm_package_contents` needs `make create_npm_package` to have run** - it inspects `npm/`, it does
   not build it.
+- **The 7.4.1 `RELEASE.md` entry overstates what shipped, and the entry is history — do not rewrite it.** It claims
+  "Regenerated with ondewo-proto-compiler 5.13.0" and that "the hand-written `auth/` surface is now re-exported from
+  the generated public-api barrel". Neither reached the tree: no commit between `8b9c1f2` and `23f4ed9` touches
+  `api/**` or `public-api.*`, and `public-api.d.ts` still re-exports only the four generated stub modules. The cause
+  is the pin trap above — `build` runs `check_out_correct_submodule_versions` **first**, so the codegen ran against
+  the Makefile's `tags/5.10.0`, not the 5.13.0 gitlink. Consumers must keep deep-importing
+  `@ondewo/s2t-client-typescript/auth/offlineTokenProvider` (which is what `README.md` documents) until a real
+  `make build` runs on the 5.14.0 pin.
 
 ## Release
 
@@ -247,9 +265,9 @@ not just verified.
 - **The release commit is `-git commit --no-verify …`.** The leading `-` makes make ignore the non-zero exit git
   returns when the build produced nothing to stage; `--no-verify` stops husky reformatting freshly generated files
   mid-commit.
-- **Every token-bearing recipe line is `@`-prefixed** so make never echoes a secret: `login_to_gh` (line 136),
-  `docker_npm_release`'s `npm config set … _authToken` (166), the `docker run -e …` wrappers, and the easy-to-miss
-  credential sub-make `@make release $(info)` in `run_release_with_devops` (182). Do not regress this.
+- **Every token-bearing recipe line is `@`-prefixed** so make never echoes a secret: `login_to_gh` (line 135),
+  `docker_npm_release`'s `npm config set … _authToken` (165), the `docker run -e …` wrappers (151, 159), and the
+  easy-to-miss credential sub-make `@make release $(info)` in `run_release_with_devops` (181). Do not regress this.
 - **Codegen must run TTY-free.** `src/package.json`'s `build` uses plain `docker run` — never `-it`, which fails
   non-interactively with `cannot attach stdin to a TTY-enabled container`. `-it` belongs only on the interactive
   `debug` entry point.
