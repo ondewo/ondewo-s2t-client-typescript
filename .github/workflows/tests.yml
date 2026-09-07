@@ -9,6 +9,10 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
+      # `submodules:` is deliberately NOT enabled: no hand-written source (auth/**, examples/**)
+      # references src/ondewo-s2t-api or ondewo-proto-compiler -- both are codegen inputs only, the
+      # generated api/ directory is committed here, and .gitmodules gives ondewo-proto-compiler an SSH
+      # URL (git@github.com:...) a hosted runner cannot clone.
       - uses: actions/checkout@v5
 
       - name: Set up Node.js 20
@@ -20,7 +24,10 @@ jobs:
         run: npm install --no-audit --no-fund
 
       # The repo is ~95% generated gRPC/protobuf stubs; coverage is gated on the HAND-WRITTEN surface
-      # (the D18 Keycloak offline-token auth provider). The test compiles the TS provider + spec and runs
-      # node's built-in test runner under c8 with a 100% line/branch/function-coverage gate.
+      # (the D18 Keycloak offline-token auth provider and the S2T example). The gate is STRUCTURAL:
+      # tsconfig.test.json compiles every .ts file under auth/ and examples/ into .test-build/ and
+      # .c8rc.json (all: true, per-file: true) enforces 100% lines/branches/functions/statements on each
+      # of them, so a new hand-written file without tests fails CI automatically.
       - name: Unit tests + 100% coverage gate on hand-written code
         run: npm test
+

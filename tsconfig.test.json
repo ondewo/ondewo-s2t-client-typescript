@@ -1,0 +1,16 @@
+{
+	"//": "Compiles the HAND-WRITTEN TypeScript sources (auth/, examples/) plus their specs into .test-build/ for `npm test`. The directory globs are deliberate: a NEW hand-written .ts file is compiled -- and therefore coverage-gated by .c8rc.json -- without editing any config. `rootDir: \".\"` keeps the emitted layout mirroring the repo so the generated api/ stubs stay reachable at .test-build/api (copied there by the pretest script) and so c8 can map coverage back onto the original .ts sources.",
+	"compilerOptions": {
+		"outDir": ".test-build",
+		"rootDir": ".",
+		"module": "commonjs",
+		"target": "es2020",
+		"lib": ["es2020", "dom"],
+		"types": ["node"],
+		"typeRoots": ["./node_modules/@types"],
+		"strict": true,
+		"skipLibCheck": true,
+		"sourceMap": true
+	},
+	"include": ["auth/**/*.ts", "examples/**/*.ts"]
+}
