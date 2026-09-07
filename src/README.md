@@ -118,10 +118,10 @@ make eslint                        ## also run by .husky/pre-commit
 make prettier PRETTIER_WRITE=-w    ## also run by .husky/pre-commit
 ```
 
-`npm test` is the whole CI gate. `tsconfig.test.json` compiles **every** `.ts` file under `auth/` and `examples/`
-into `.test-build/`, and `.c8rc.json` demands 100% lines/branches/functions/statements **per file** on all of it —
-so a new hand-written file without tests fails the build on its own, with no config change. The generated `api/`
-stubs are copied into `.test-build/api` for the runtime and excluded from the measurement.
+`npm test` is the heart of the CI gate. `tsconfig.test.json` compiles **every** `.ts` file under `auth/` and
+`examples/` into `.test-build/`, and `.c8rc.json` demands 100% lines/branches/functions/statements **per file** on
+all of it — so a new hand-written file without tests fails the build on its own, with no config change. The
+generated `api/` stubs are copied into `.test-build/api` for the runtime and excluded from the measurement.
 
 `.husky/pre-push` runs `npm test` before anything leaves the machine; `.husky/pre-commit` deliberately does not
 (`make release` invokes it directly, and the suite must not run mid-release).
