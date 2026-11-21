@@ -77,31 +77,49 @@ the package by `make create_npm_package`.
 
 ## Authentication
 
-The service expects a Keycloak bearer token in the `authorization` gRPC metadata header. `auth/offlineTokenProvider`
-performs the headless (2FA-exempt) ROPC + `offline_access` login against the public SDK client and keeps the
-short-lived access token fresh in the background until `tokenExpirationInS` elapses:
+All RPCs are authenticated with a Keycloak-issued **bearer token**. `auth/offlineTokenProvider` authenticates against
+the **public** SDK client (no client secret) either with the technical user's password or with a handed-off Keycloak
+**offline refresh token**:
 
-```typescript
-import { login, OfflineTokenProvider } from '@ondewo/s2t-client-typescript/auth/offlineTokenProvider';
+```ts
+import { createKeycloakAuthClientOptions, login } from '@ondewo/s2t-client-typescript/auth/offlineTokenProvider';
 import { Speech2TextPromiseClient } from '@ondewo/s2t-client-typescript/api/ondewo/s2t/speech-to-text_grpc_web_pb';
-import { ListS2tPipelinesRequest } from '@ondewo/s2t-client-typescript/api/ondewo/s2t/speech-to-text_pb';
 
-const provider: OfflineTokenProvider = await login({
-  keycloakUrl: 'https://auth.ondewo.com/auth',
-  realm: 'ondewo-ccai-platform',
-  clientId: 'ondewo-nlu-cai-sdk-public',
-  username: process.env.KEYCLOAK_USER_NAME ?? '',
-  password: process.env.KEYCLOAK_PASSWORD ?? ''
-  // keycloakVerifySsl: false  // ONLY for a self-signed local Envoy; Node-only, ignored in a browser
+// Password: one ROPC login (grant_type=password, scope=offline_access).
+const provider = await login({
+ keycloakUrl: 'https://auth.example.com/auth',
+ realm: 'ondewo-ccai-platform',
+ clientId: 'ondewo-nlu-cai-sdk-public',
+ username: 'tech-user@example.com',
+ password: '...'
 });
 
-const client = new Speech2TextPromiseClient('http://localhost:8080');
-const request = new ListS2tPipelinesRequest();
-request.setLanguagesList(['en-US']);
-const response = await client.listS2tPipelines(request, { Authorization: provider.getAuthorizationHeader() });
+// Offline token: one grant_type=refresh_token request; the password is never sent, not even as a fallback.
+const tokenProvider = await login({
+ keycloakUrl: 'https://auth.example.com/auth',
+ realm: 'ondewo-ccai-platform',
+ clientId: 'ondewo-nlu-cai-sdk-public',
+ username: 'tech-user@example.com',
+ password: '',
+ refreshToken: process.env.ONDEWO_S2T_OFFLINE_TOKEN ?? ''
+});
 
-provider.stop(); // stops the background refresh loop so the process can exit
+// Attach `authorization: Bearer <token>` to every call of a generated client ...
+const client = new Speech2TextPromiseClient(hostname, null, { ...options, ...createKeycloakAuthClientOptions(provider) });
+// ... or per call: the token is refreshed on read when it is within 30 s of expiry.
+await client.listS2tPipelines(request, await provider.getAuthorizationMetadata());
 ```
+
+- `login(...)` always builds a new provider. `getKeycloakTokenProvider(...)` (same options) shares ONE provider (one
+  login) per credential set, and returns `null` when none of `keycloakUrl` / `realm` / `clientId` is set (attach no
+  auth metadata then).
+- The token is refreshed in the background 30 s before it expires. A failed refresh never stops that: it is retried
+  with a jittered backoff (5 s doubling to 300 s) shared with the per-call read, a still-valid token keeps being
+  served meanwhile, and only an expired token that cannot be refreshed raises `KeycloakAuthenticationError` (also
+  exported as `TokenError`, with the underlying error as `cause`).
+- `tokenExpirationInS` bounds how long the refresh runs; `keycloakVerifySsl: false` skips certificate verification
+  of the token request only (Node; a self-signed local Envoy). Call `provider.stop()` (or `await provider.close()`)
+  when you are done. `redactLoginOptions(options)` renders options safe to log.
 
 A runnable version of exactly this flow, configured from `examples/environment.env`, lives in
 `examples/ts-client.ts`.
